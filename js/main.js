@@ -1,4 +1,4 @@
-function singlesitenav(target) {
+function pagenavto(target) {
     'use strict';
     $('.activescreen').removeClass('activescreen');
     $('section').css('left', '100vw');
