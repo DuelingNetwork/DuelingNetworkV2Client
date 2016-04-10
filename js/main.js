@@ -1,11 +1,13 @@
 /*global $, console*/
 
+var previousLocation = ''; //purposely a global.
 
 function pagenavto(target) {
     'use strict';
     $('.activescreen').removeClass('activescreen');
     $('section').css('display', 'none');
     $('#' + target).css('display', 'block').addClass('activescreen');
+    previousLocation = target;
     return false;
 }
 
