@@ -49,41 +49,44 @@
             <img src="img/Yugioh-Logo.png" alt="" style="float:left; height:33%;">
             <h1 style="float:left; height:33%;">Dueling Network
             </h1>
-            <div id="login" class="login">
-                <input id="username" placeholder="username" />
-                <br />
-                <input type="password" id="password" placeholder="password" />
-                <br />Stay logged in
-                <input id="remember" type="checkbox" />
-                <button onClick="login()">Login</button>
-            </div>
+            <form id="formLogin" method="post" target="login_frame">
+                Username:
+                <br/>
+                <input type="text" name="username">
+                <br/> Password:
+                <br/>
+                <input type="password" name="password">
+                <br/> Remember Me:
+                <input type="checkbox" name="rememberMe" checked>
+                <br/>
+                <input type="submit" value="Login">
+            </form>
 
         </section>
         <section id='mainscreen' style="display:none;">
             <div class='chatminimize'></div>
             <div class='privateminimize'></div>
-			<div class="mainbutton" id="openroom">Duel Room</div>
-			<div class="mainbutton" id="deckeditor">Deck Editor</div>
+            <div class="mainbutton" id="openroom">Duel Room</div>
+            <div class="mainbutton" id="deckeditor">Deck Editor</div>
         </section>
         <section id="duelroom" style="display:none;">
-			<div class="screenbody">
-				<div class="header">
-					Advanced (unrated)
-					<div id="au"></div>
-				</div>
-				<div class="header">
-					Traditional (unrated)
-					<div id="tu"></div>
-				</div>
-				<div class="header">
-					Unlimited (unrated)
-					<div id="uu"></div>
-				</div>
-			</div>
-		</section>
+            <div class="screenbody">
+                <div class="header">
+                    Advanced (unrated)
+                    <div id="au"></div>
+                </div>
+                <div class="header">
+                    Traditional (unrated)
+                    <div id="tu"></div>
+                </div>
+                <div class="header">
+                    Unlimited (unrated)
+                    <div id="uu"></div>
+                </div>
+            </div>
+        </section>
     </main>
-    <script src="js/vendor/jquery-1.10.2.min.js"></script>')
-    </script>
+    <script src="js/vendor/jquery-1.12.0.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 
