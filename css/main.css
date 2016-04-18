@@ -4,6 +4,8 @@ nav ol {
     list-style-image: none;
     margin: 0;
 }
+
+
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
@@ -11,6 +13,8 @@ nav ol {
 * {
     box-sizing: border-box;
 }
+
+
 /* csslint */
 
 .catchadream {
@@ -19,20 +23,24 @@ nav ol {
     animation: charlieeee 2.5s forwards linear infinite;
     background-size: 50% auto;
 }
+
 html,
 body,
 main,
 main > section {
     height: 100%;
 }
+
 main {
     background: url(../img/bg.png)
 }
+
 main > section {
     padding: 50px;
     color: silver;
     padding-bottom: 0;
 }
+
 main > section > .navbar {
     position: absolute;
     top: 0;
@@ -41,9 +49,11 @@ main > section > .navbar {
     height: 49px;
     padding: 5px;
 }
+
 #login {
     float: left;
 }
+
 #chat {
     position: absolute;
     top: 0;
@@ -52,12 +62,14 @@ main > section > .navbar {
     width: 254px;
     resize: both;
 }
+
 h1 {
     font-size: 80px;
     height: 10%;
     padding: 0;
     margin: 0;
 }
+
 #chat h2 {
     height: 10%;
     padding: 8px 5px;
@@ -66,16 +78,19 @@ h1 {
     width: 100%;
     color: white;
 }
+
 #chat input[type="text"] {
     border: 1px solid blue;
     width: 100%;
     resize: none;
 }
+
 #chat {
     height: 75%;
     resize: both;
     overflow: auto;
 }
+
 #chat ul {
     list-style: none;
     padding: 0 5px;
@@ -85,12 +100,15 @@ h1 {
     resize: none;
     word-wrap: break-word;
 }
+
 #chat span {
     font-weight: bold;
 }
+
 .username0 {
     color: blue;
 }
+
 .minimize {
     height: 30px;
     width: 30px;
@@ -101,6 +119,7 @@ h1 {
     top: 6px;
     right: 13px;
 }
+
 .chatminimize {
     position: absolute;
     bottom: 40px;
@@ -109,6 +128,7 @@ h1 {
     width: 40px;
     background: orange;
 }
+
 .privateminimize {
     position: absolute;
     bottom: 40px;
@@ -117,6 +137,7 @@ h1 {
     width: 40px;
     background: orange;
 }
+
 @-webkit-keyframes charlieeee {
     from {
         background-position: top left;
@@ -124,4 +145,27 @@ h1 {
     to {
         background-position: top right;
     }
+}
+
+div#mainmenutitle {
+    font-size: 7vh;
+    color: white;
+    text-align: center;
+}
+
+.mainbutton {
+    width: 41vw;
+    background: blue;
+    text-align: center;
+    float: left;
+    margin: 2vh 2vw;
+    font-size: 6vh;
+    color: white;
+    padding: 3vh 1vw;
+    border: 6px solid seagreen;
+    box-shadow: inset 0px 0px 70px white;
+}
+
+.mainbutton.exit {
+    margin: 2vw 26vw;
 }
