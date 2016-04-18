@@ -54,3 +54,8 @@ $('#formLogin').submit(function (event) {
 
     event.preventDefault();
 });
+
+
+$(function main() { //this is `void main()` from C, C++, C# and Java land.
+    'use strict';
+});
