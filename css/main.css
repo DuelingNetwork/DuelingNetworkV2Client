@@ -164,6 +164,8 @@ div#mainmenutitle {
     padding: 3vh 1vw;
     border: 6px solid seagreen;
     box-shadow: inset 0px 0px 70px white;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .mainbutton.exit {
