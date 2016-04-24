@@ -101,6 +101,10 @@ function logout() {
 
 }
 
+function updateMaxChatMessageLength(max) {
+    $('.affectedbymaxChatMessageLength').attr('maxlength', max);
+}
+
 $('#formLogin').submit(function (event) {
     'use strict';
     var url = "http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/login",
