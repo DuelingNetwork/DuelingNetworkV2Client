@@ -33,13 +33,29 @@ function initDNSocket() {
     serverConnection.onerror = onDNSocketError;
     serverConnection.onmessage = onDNSocketData;
 }
+function logout(){
+    var url = "http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/login",
+        rememberMe = $('[name=rememberMe]').prop('checked'),
+        input = $(this).serialize(); // this refers to $('#formLogin')-> result.
 
+    $.post(url, input, function (data) {
+        console.log(data);
+        if (data.success) {
+            pagenavto('mainscreen');
+            if (rememberMe) {
+
+            }
+            initDNSocket();
+        }
+    });
+
+}
 
 $('#formLogin').submit(function (event) {
     'use strict';
     var url = "http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/login",
         rememberMe = $('[name=rememberMe]').prop('checked'),
-        input = $(this).serialize(); // this refers to $('#formLogin')-> result.
+        input = $('#formLogin').serialize(); // this refers to $('#formLogin')-> result.
 
     $.post(url, input, function (data) {
         console.log(data);
