@@ -1,7 +1,8 @@
 /*jslint browser:true*/
 /*global $, console, WebSocket*/
 
-var previousLocation = '', //purposely a global.
+var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', //request base for DN's HTTP API
+    previousLocation = '', //purposely a global.
     serverConnection = {}, //socket connection to DN.
     loginData = null,
     heartbeatInterval = null;
