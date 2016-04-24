@@ -5,7 +5,14 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     previousLocation = '', //purposely a global.
     serverConnection = {}, //socket connection to DN.
     loginData,
-    heartbeatInterval;
+    heartbeatInterval,
+    adminColrs = {
+        0: '',
+        1: 'green',
+        2: 'silver',
+        3: 'gold',
+        4: 'gold'
+    };
 
 function getSessionId() {
     'use strict';
@@ -60,6 +67,14 @@ function onDNSocketConnect() {
 function onDNSocketData(message) {
     'use strict';
     console.log(message);
+    try {
+        var data = JSON.parse(message.data);
+    } catch (parse_error) {
+        console.log('Could not parse:', message.data);
+        return;
+    }
+    console.log(data);
+
 }
 
 function onDNSocketError() {
@@ -145,6 +160,19 @@ $('#formForgotPW').submit(function (event) {
 });
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
+    $('#chat input').bind("enterKey", function (e) {
+        var message = $('#chat input').val().replace(/\,/g, '\\,');
+        //connection.write('Global message,' + message + '\0');
+        $('#chat input').val('');
+    });
+    $('#chat input').keyup(function (e) {
+        if (e.keyCode == 13) {
+            $(this).trigger("enterKey");
+        }
+    });
+    $('.chatminimize, .minimize').on('click', function () {
+        $('#chat').toggle();
+    });
     $('#formRegister').submit(function (event) {
         $.post(httpBase + "register", $(this).serialize(), function (data) {
             console.log(data);
