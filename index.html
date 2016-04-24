@@ -51,7 +51,7 @@
             <img src="img/Yugioh-Logo.png" alt="" style="float:left; height:33%;">
             <h1 style="float:left; height:33%;">Dueling Network
             </h1>
-            <form id="formLogin" method="post" target="login_frame">
+            <form id="formLogin" method="post" target="login_frame" class="displayform activeform">
                 Username:
                 <br/>
                 <input type="text" name="username">
@@ -62,8 +62,37 @@
                 <input type="checkbox" name="rememberMe" checked>
                 <br/>
                 <input type="submit" value="Login">
+                <br/>
+                <div style="width: 50%;"><button id="registerButton" style="color: blue; text-decoration: underline;">register</button></div>
+                <div style="width: 50%;"><button id="forgotPWButton" style="color: blue; text-decoration: underline;">forgot password?</button></div>
             </form>
-
+            <form id="formRegister" class="displayform">
+                Username:
+                <br/>
+                <input type="text" name="username">
+                <br/> Password:
+                <br/>
+                <input type="password" name="password">
+                <br/> Email:
+                <input type="text" name="email">
+                <br/>
+                <span>note: you will need to confirm your e-mail</span>
+                <br/>
+                <div style="width: 50%;"><button class="backToLogin" style="color: blue; text-decoration: underline;">back</button></div>
+                <br/>
+                <input type="submit" value="Register">
+                <br/>
+            </form>
+            <form id="formForgotPW" class="displayform">
+                Enter the e-mail you used to register below. An e-mail will be sent with a link to reset your account's password.
+                <br/> Email:
+                <input type="text" name="email">
+                <br/>
+                <div style="width: 50%;"><button class="backToLogin" style="color: blue; text-decoration: underline;">back</button></div><br/>
+                <input type="submit" value="Reset Password">
+                <br/>
+            </form>
+            
         </section>
         <section id='mainscreen' style="display:none;">
             <div class='chatminimize'></div>
