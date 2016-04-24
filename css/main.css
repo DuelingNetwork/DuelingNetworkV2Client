@@ -50,6 +50,14 @@ main > section > .navbar {
     padding: 5px;
 }
 
+.displayform {
+    display: none;
+}
+
+.displayform.activeform {
+    display: block;
+}
+
 #login {
     float: left;
 }
