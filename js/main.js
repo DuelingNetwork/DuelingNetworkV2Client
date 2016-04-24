@@ -2,7 +2,9 @@
 /*global $, console, WebSocket*/
 
 var previousLocation = '', //purposely a global.
-    serverConnection = {}; //socket connection to DN.
+    serverConnection = {}, //socket connection to DN.
+    loginData = null,
+    heartbeatInterval = null;
 
 function pagenavto(target) {
     'use strict';
@@ -15,6 +17,38 @@ function pagenavto(target) {
 
 function onDNSocketConnect() {
     'use strict';
+    console.log("open");
+    var request = {
+      clientVersion: 1,
+      username: loginData.username,
+      loginToken: loginData.loginToken,
+      sessionId: getSessionId(),
+      adminMode: false
+    };
+    sendRequest(request);
+    var heartbeatRequest = {
+      name: "heartbeat",
+      data: {}
+    };
+    heartbeatInterval = setInterval(
+        function() {
+          console.log("sending heartbeat");
+          sendRequest(heartbeatRequest);
+        },
+        30000);
+}
+
+function sendRequest(request) {
+    serverConnection.send(JSON.stringify(request));
+}
+
+function getSessionId() {
+    var chars = '0123456789abcdef'.split('');
+    var sessionId = '';
+    for (var i = 0; i < 32; i++) {
+      sessionId += chars[Math.floor(Math.random() * 16)];
+    }
+    return sessionId;
 }
 
 function onDNSocketData(message) {
@@ -26,12 +60,21 @@ function onDNSocketError() {
     'use strict';
 }
 
+function onDNSocketClose() {
+    'use strict';
+    clearInterval(heartbeatInterval);
+    heartbeatInterval = null;
+    socket = null;
+    console.log("close");
+}
+
 function initDNSocket() {
     'use strict';
     serverConnection = new WebSocket("ws://duelingnetwork.com:1236/");
     serverConnection.onopen = onDNSocketConnect;
     serverConnection.onerror = onDNSocketError;
     serverConnection.onmessage = onDNSocketData;
+    serverConnection.onclose = onDNSocketClose;
 }
 
 
@@ -48,6 +91,7 @@ $('#formLogin').submit(function (event) {
             if (rememberMe) {
 
             }
+            loginData = data;
             initDNSocket();
         }
     });
