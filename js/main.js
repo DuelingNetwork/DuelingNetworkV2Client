@@ -65,7 +65,7 @@ function onDNSocketClose() {
     'use strict';
     clearInterval(heartbeatInterval);
     heartbeatInterval = null;
-    socket = null;
+    serverConnection = {};
     console.log("close");
 }
 
