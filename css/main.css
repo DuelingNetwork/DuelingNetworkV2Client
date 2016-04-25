@@ -35,17 +35,45 @@ main {
     background: url(../img/bg.png)
 }
 
+a#forumlink {
+    position: absolute;
+    top: 30%;
+    right: 5%;
+    font-size: 1.5em;
+    color: lightgreen;
+    text-decoration: none;
+}
+
+a#ruleslink {
+    position: absolute;
+    top: 35%;
+    right: 5%;
+    font-size: 1.5em;
+    color: hotpink;
+    text-decoration: none;
+}
+
+#news {
+    position: absolute;
+    left: 50%;
+    bottom: 10vh;
+    width: 40vw;
+    height: 30vh;
+    background: white;
+    overflow-y: scroll;
+}
+
 #duelinglogo {
     animation: dueling 5s reverse infinite;
     width: 40vw;
     float: left;
     clear: left;
     background-image: url(../img/dueling1.png);
-    height: 16vh;
-    background-size: cover;
-    border: contain;
+    height: 12vh;
+    background-size: contain;
     background-repeat: no-repeat;
     webkit-transition: background-image 300ms;
+    background-position: center center;
 }
 
 #networklogo {
@@ -54,10 +82,10 @@ main {
     float: left;
     clear: left;
     background-image: url(../img/network1.png);
-    height: 16vh;
+    height: 12vh;
     background-size: contain;
-    border: none;
     background-repeat: no-repeat;
+    background-position: center center;
 }
 
 main > section {
