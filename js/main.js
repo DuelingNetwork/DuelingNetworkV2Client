@@ -12,7 +12,10 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
         2: 'silver',
         3: 'gold',
         4: 'gold'
-    };
+    },
+    userlist = {},
+    onlineUsers,
+    onlineUserCount = 0;
 
 function getSessionId() {
     'use strict';
@@ -66,15 +69,27 @@ function onDNSocketConnect() {
 
 function onDNSocketData(message) {
     'use strict';
+    var user,
+        data;
     console.log(message);
     try {
-        var data = JSON.parse(message.data);
+        data = JSON.parse(message.data);
     } catch (parse_error) {
         console.log('Could not parse:', message.data);
         return;
     }
     console.log(data);
+    if (data.onlineUsers) {
+        onlineUsers = data.onlineUsers;
+        for (user in data.onlineUsers) {
+            if (data.onlineUsers.hasOwnProperty(user)) {
+                userlist[user] = data.onlineUsers[user];
+            }
+        }
+    }
+    onlineUserCount = data.onlineUsers.length;
 
+    $('#useronlinecount').text('Users Online: ' + onlineUserCount)
 }
 
 function onDNSocketError() {

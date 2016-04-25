@@ -37,6 +37,7 @@
             </h2>
             <ul></ul>
             <input type="text">
+
         </div>
         <div id=private style="display:none" draggable="true" ondragstart="drag(event)">
             <h2>Private Chat
@@ -44,6 +45,13 @@
             </h2>
             <ul></ul>
             <input type="text">
+        </div>
+        <div id=onlineusers style="display:none" draggable="true" ondragstart="drag(event)">
+            <h2>Online Users
+                <div class="minimize"></div>
+            </h2>
+            <ul></ul>
+            <div id="useronlinecount">User Online : </div>
         </div>
         <section id="landing" class="sceen">
 
@@ -63,8 +71,12 @@
                 <br/>
                 <input type="submit" value="Login">
                 <br/>
-                <div style="width: 50%;"><button id="registerButton" style="color: blue; text-decoration: underline;">register</button></div>
-                <div style="width: 50%;"><button id="forgotPWButton" style="color: blue; text-decoration: underline;">forgot password?</button></div>
+                <div style="width: 50%;">
+                    <button id="registerButton" style="color: blue; text-decoration: underline;">register</button>
+                </div>
+                <div style="width: 50%;">
+                    <button id="forgotPWButton" style="color: blue; text-decoration: underline;">forgot password?</button>
+                </div>
             </form>
             <form id="formRegister" class="displayform">
                 Username:
@@ -78,7 +90,9 @@
                 <br/>
                 <span>note: you will need to confirm your e-mail</span>
                 <br/>
-                <div style="width: 50%;"><button class="backToLogin" style="color: blue; text-decoration: underline;">back</button></div>
+                <div style="width: 50%;">
+                    <button class="backToLogin" style="color: blue; text-decoration: underline;">back</button>
+                </div>
                 <br/>
                 <input type="submit" value="Register">
                 <br/>
@@ -88,11 +102,14 @@
                 <br/> Email:
                 <input type="text" name="email">
                 <br/>
-                <div style="width: 50%;"><button class="backToLogin" style="color: blue; text-decoration: underline;">back</button></div><br/>
+                <div style="width: 50%;">
+                    <button class="backToLogin" style="color: blue; text-decoration: underline;">back</button>
+                </div>
+                <br/>
                 <input type="submit" value="Reset Password">
                 <br/>
             </form>
-            
+
         </section>
         <section id='mainscreen' style="display:none;">
             <div class='chatminimize'></div>
