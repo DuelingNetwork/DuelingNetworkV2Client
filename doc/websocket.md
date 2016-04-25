@@ -13,7 +13,7 @@ Source code examples can be found in the main project scripts.
  - `username`: String from HTTP response body
  - `loginToken`: String from HTTP response body
  - `sessionId`: Randomly generated session ID as string
- - `adminMode`: `false` if user is not logging in as admin (or not able to), else an integer describing the current admin role (currently options are 1 through 4)
+ - `adminMode`: `false` if user is not logging in as admin (or not able to), else `true`
 4. Socket will respond to this request with following JSON:
  - `success`: boolean indicating if the login was successful
  - `error`: Error message if `success` was false
