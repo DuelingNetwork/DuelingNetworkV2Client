@@ -187,7 +187,7 @@ h1 {
     left: 40px;
     height: 40px;
     width: 40px;
-    background: orange;
+    background: url(../img/pub_chat.svg) center no-repeat;
 }
 
 .privateminimize {
@@ -197,6 +197,7 @@ h1 {
     height: 40px;
     width: 40px;
     background: orange;
+    background: url(../img/private_chat.svg) center no-repeat;
 }
 
 .publicchatlist {
@@ -281,6 +282,14 @@ div#socialmedia {
     position: fixed;
     right: .5vw;
     bottom: .5vh;
+    width: 2vw;
+    height: 2vw;
+}
+
+#camera {
+    position: fixed;
+    right: .5vw;
+    top: .5vh;
     width: 2vw;
     height: 2vw;
 }

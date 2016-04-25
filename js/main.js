@@ -34,6 +34,11 @@ function pagenavto(target) {
     $('section').css('display', 'none');
     $('#' + target).css('display', 'block').addClass('activescreen');
     previousLocation = target;
+    if (target !== 'landing') {
+        $('#camera').css('display', 'block');
+    } else {
+        $('#camera').css('display', 'none');
+    }
     return false;
 }
 
