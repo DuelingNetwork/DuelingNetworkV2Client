@@ -56,7 +56,7 @@ a#ruleslink {
 #news {
     position: absolute;
     left: 50%;
-    bottom: 10vh;
+    bottom: 20vh;
     width: 40vw;
     height: 30vh;
     background: white;
@@ -272,9 +272,17 @@ div#mainmenutitle {
 
 div#socialmedia {
     position: absolute;
-    bottom: 2vh;
+    bottom: 12vh;
     right: 10vw;
     height: 30px;
+}
+
+#mutebutton {
+    position: fixed;
+    right: .5vw;
+    bottom: .5vh;
+    width: 2vw;
+    height: 2vw;
 }
 
 div#socialmedia img {
