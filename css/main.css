@@ -278,9 +278,15 @@ div#socialmedia {
 }
 
 div#socialmedia img {
-    background: white;
     height: 30px;
     width: 30px;
+    background: transparent;
+}
+
+div#socialmedia img:hover {
+    box-shadow: 0 0 15px white;
+    background: white;
+    border-radius: 5px;
 }
 
 form#formLogin {
