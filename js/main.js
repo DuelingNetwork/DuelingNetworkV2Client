@@ -15,7 +15,8 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     },
     userlist = {},
     onlineUsers,
-    onlineUserCount = 0;
+    onlineUserCount = 0,
+    dnClientVersion = 1;
 
 function getSessionId() {
     'use strict';
@@ -51,7 +52,7 @@ function onDNSocketConnect() {
     'use strict';
     console.log("open");
     var request = {
-            clientVersion: 1,
+            clientVersion: dnClientVersion,
             username: loginData.username,
             loginToken: loginData.loginToken,
             sessionId: getSessionId(),
@@ -67,10 +68,6 @@ function onDNSocketConnect() {
         sendRequest(heartbeatRequest);
     }, 30000);
 }
-
-
-
-
 
 function onDNSocketData(message) {
     'use strict';
@@ -91,9 +88,8 @@ function onDNSocketData(message) {
                 userlist[user] = data.onlineUsers[user];
             }
         }
+        onlineUserCount = Object.keys(userlist).length;
     }
-    onlineUserCount = data.onlineUsers.length;
-
     $('#useronlinecount').text('Users Online: ' + onlineUserCount)
 }
 
@@ -119,21 +115,19 @@ function initDNSocket() {
 
 function logout() {
     //'dont use strict';
-    var url = "http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/login",
-        rememberMe = $('[name=rememberMe]').prop('checked'),
-        input = $(this).serialize(); // this refers to $('#formLogin')-> result.
-
-    $.post(url, input, function (data) {
+    $.post(httpBase + "logout", {}, function (data) {
         console.log(data);
         if (data.success) {
             pagenavto('mainscreen');
             if (rememberMe) {
 
             }
-            initDNSocket();
         }
     });
+}
 
+function renderUserList () {
+    
 }
 
 function updateMaxChatMessageLength(max) {
@@ -142,11 +136,8 @@ function updateMaxChatMessageLength(max) {
 
 $('#formLogin').submit(function (event) {
     'use strict';
-    var url = "http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/login",
-        rememberMe = $('[name=rememberMe]').prop('checked'),
+    var rememberMe = $('[name=rememberMe]').prop('checked'),
         input = $('#formLogin').serialize(); // this refers to $('#formLogin')-> result.
-
-
     $.post(httpBase + "login", input, function (data) {
         console.log(data);
         if (data.success) {
@@ -158,11 +149,8 @@ $('#formLogin').submit(function (event) {
             initDNSocket();
         }
     });
-
     event.preventDefault();
 });
-
-
 
 $('#formForgotPW').submit(function (event) {
     'use strict';
@@ -175,9 +163,9 @@ $('#formForgotPW').submit(function (event) {
             alert(data.error);
         }
     });
-
     event.preventDefault();
 });
+
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
     $('#chat input').bind("enterKey", function (e) {
