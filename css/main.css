@@ -318,3 +318,35 @@ div#socialmedia img:hover {
 .mainbutton.exit {
     margin: 2vw 26vw;
 }
+
+.backbutton {
+    background: red;
+    float: right;
+    width: 4vw;
+    text-align: center;
+    font-size: 3vh;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow:inset 0px 0px 15px white;
+    border: 5px solid white;
+}
+
+.lobby {
+    width: 33%;
+    border: 5px solid white;
+    border-radius: 10px;
+    margin: 2vw;
+}
+
+.lobby-title {
+    font-weight: bold;
+    font-size: 3vh;
+    color:black;
+    text-align: center;
+}
+
+.lobby-container {
+    display: inline-flex;
+    width: 100%;
+}
