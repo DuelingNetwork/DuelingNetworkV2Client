@@ -57,9 +57,10 @@
 
             <img src="img/envoy_of_the_beginning.png" alt="" style="float:right; height:100%;">
             <img src="img/Yugioh-Logo.png" alt="" style="float:left; height:33%;">
-            <h1 style="float:left; height:33%;">Dueling Network
+            <img src="img/dueling.png" alt="Dueling" style="width:40vw;float:left; clear:left">
+            <img src="img/network.png" alt="Dueling" style="width:40vw;float:left; clear:left">
             </h1>
-            <form id="formLogin" method="post" target="login_frame" class="displayform activeform">
+            <form id="formLogin" method="post" target="login_frame" class="displayform activeform" style="float:left; clear:left">
                 Username:
                 <br/>
                 <input type="text" name="username">
@@ -72,10 +73,10 @@
                 <input type="submit" value="Login">
                 <br/>
                 <div style="width: 50%;">
-                    <button id="registerButton" style="color: blue; text-decoration: underline;">register</button>
+                    <a id="registerButton" style="color: blue; text-decoration: underline;">register</a>
                 </div>
                 <div style="width: 50%;">
-                    <button id="forgotPWButton" style="color: blue; text-decoration: underline;">forgot password?</button>
+                    <a id="forgotPWButton" style="color: blue; text-decoration: underline;">forgot password?</a>
                 </div>
             </form>
             <form id="formRegister" class="displayform">
@@ -114,6 +115,7 @@
         <section id='mainscreen' style="display:none;">
             <div class='chatminimize'></div>
             <div class='privateminimize'></div>
+            <div class='publicchatlist'></div>
             <div id="mainmenutitle">Main Menu</div>
             <div class="mainbutton" id="openduelroom" onclick="pagenavto('duelroom');">Duel Room</div>
             <div class="mainbutton" id="opendeckeditor" onclick="pagenavto('deckeditor');">Deck Editor</div>

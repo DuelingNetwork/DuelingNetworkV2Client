@@ -146,6 +146,15 @@ h1 {
     background: orange;
 }
 
+.publicchatlist {
+    position: absolute;
+    bottom: 100px;
+    left: 40px;
+    height: 40px;
+    width: 40px;
+    background: orange;
+}
+
 @-webkit-keyframes charlieeee {
     from {
         background-position: top left;
@@ -174,6 +183,12 @@ div#mainmenutitle {
     box-shadow: inset 0px 0px 70px white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+form#formLogin {
+    background: rgba(200, 200, 200, .4);
+    padding: 1vh 1vh;
+    color: black;
 }
 
 .mainbutton.exit {
