@@ -306,10 +306,13 @@ div#socialmedia img:hover {
     border-radius: 5px;
 }
 
-form#formLogin {
+#landing form {
     background: rgba(200, 200, 200, .4);
     padding: 1vh 1vh;
     color: black;
+    float: left;
+    clear: left;
+    width: 20em;
 }
 
 .mainbutton.exit {
