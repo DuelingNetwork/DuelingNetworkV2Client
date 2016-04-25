@@ -92,6 +92,7 @@ main > section {
     padding: 50px;
     color: silver;
     padding-bottom: 0;
+    position: relative;
 }
 
 main > section > .navbar {
@@ -203,7 +204,7 @@ h1 {
 
 .publicchatlist {
     position: fixed;
-    bottom: 100px;
+    bottom: 90px;
     left: 40px;
     height: 40px;
     width: 40px;
@@ -219,6 +220,7 @@ h1 {
     box-shadow: inset 0 0 5px silver;
     position: absolute;
     color: black;
+    cursor: pointer;
 }
 
 .uiexit {
@@ -232,8 +234,59 @@ h1 {
 }
 
 .savedeck {
-    bottom: 80px;
+    bottom: 90px;
     left: 160px;
+}
+
+.deletedeck {
+    bottom: 115px;
+    left: 160px;
+}
+
+.renamedeck {
+    bottom: 140px;
+    left: 160px;
+}
+
+.newdeck {
+    bottom: 140px;
+    left: 40px;
+}
+
+.decklist {
+    bottom: 165px;
+    left: 40px;
+    width: 14.5em;
+}
+
+.cleardeck {
+    left: 40px;
+    bottom: 195px;
+}
+
+.setasdefault {
+    left: 160px;
+    bottom: 195px;
+}
+
+div#searchpanel {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 25%;
+    background: gold;
+    top: 0;
+    border-radius: 10px;
+}
+
+div#deckpanel {
+    position: absolute;
+    left: 273px;
+    height: 75%;
+    background: blue;
+    width: 54.5%;
+    top: 0;
+    border-radius: 10px;
 }
 
 @-webkit-keyframes charlieeee {

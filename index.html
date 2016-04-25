@@ -164,8 +164,8 @@
 
         <section id="deckeditor">
             <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
-            <div class='uibutton savedeckas'>Clear Deck</div>
-            <div class='uibutton savedeckas'>Set As Default</div>
+            <div class='uibutton cleardeck'>Clear Deck</div>
+            <div class='uibutton setasdefault'>Set As Default</div>
             <select class='uibutton decklist'></select>
             <div class='uibutton newdeck'>New Deck</div>
             <div class='uibutton renamedeck'>Rename Deck</div>
@@ -173,6 +173,12 @@
             <div class='uibutton savedeck'>Save Deck</div>
             <div class='uibutton savedeckas'>Save Deck As</div>
             <div class='uibutton uiexit' onclick="pagenavto('mainscreen')">Exit</div>
+            <div id="searchpanel">
+                <div id="searchfilters">
+                    <h2>SEARCH</h2>
+                </div>
+            </div>
+            <div id="deckpanel"></div>
         </section>
 
         <section id="rankings">
@@ -193,20 +199,17 @@
         <section id="changepassword">
             <form id="formChangePassword">
                 <div class="changepwformdiv">Change Password</div>
-                <br/>
-                Current Password:
+                <br/> Current Password:
                 <input type="text" id="currentpw">
-                <br/>
-                New Password:
+                <br/> New Password:
                 <input type="text" id="newpw">
-                <br/>
-                Confirm New Password:
+                <br/> Confirm New Password:
                 <input type="text" id="confirmnewpw">
                 <br/>
-                <input type="submit" value="Change Password" id="changepw"/>
+                <input type="submit" value="Change Password" id="changepw" />
             </form>
             <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
-<div class='uibutton uiexit' onclick="pagenavto('mainscreen')">Exit</div>
+            <div class='uibutton uiexit' onclick="pagenavto('mainscreen')">Exit</div>
         </section>
 
         <section id="duelfield">
