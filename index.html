@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Dueling Network v2</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,6 +23,19 @@
 <body class="catchadream">
     <img id="mutebutton" src=img/speaker.svg>
     <img id="camera" src=img/camera.svg style="display:none;">
+    <div class='chatminimize'></div>
+    <div class='privateminimize'></div>
+    <div class='publicchatlist'></div>
+    <div class='uibutton savedeckas'>Clear Deck</div>
+    <div class='uibutton savedeckas'>Set As Default</div>
+    <select class='uibutton decklist'></select>
+    <div class='uibutton newdeck'>New Deck</div>
+    <div class='uibutton renamedeck'>Rename Deck</div>
+    <div class='uibutton deletedeck'>Delete Deck</div>
+    <div class='uibutton savedeck'>Save Deck</div>
+    <div class='uibutton savedeckas'>Save Deck As</div>
+    <div class='uibutton uiexit' onclick="pagenavto('mainscreen')">Exit</div>
+
     <main role="main">
         <!--
         <nav class="navbar">
@@ -124,10 +137,9 @@
                 <a href="https://twitter.com/dueling_network" target="_blank"><img id="twitterbutton" src="img/twitter.svg" /></a>
             </div>
         </section>
+
         <section id='mainscreen' style="display:none;">
-            <div class='chatminimize'></div>
-            <div class='privateminimize'></div>
-            <div class='publicchatlist'></div>
+
             <div id="mainmenutitle">Main Menu</div>
             <div class="mainbutton" id="openduelroom" onclick="pagenavto('duelroom');">Duel Room</div>
             <div class="mainbutton" id="opendeckeditor" onclick="pagenavto('deckeditor');">Deck Editor</div>
@@ -135,24 +147,49 @@
             <div class="mainbutton" id="openprofileviewer" onclick="pagenavto('profileviewer');">Profile Viewer</div>
             <div class="mainbutton" id="openmyprofile" onclick="pagenavto('myprofile');">My Profile</div>
             <div class="mainbutton" id="openchangepassword" onclick="pagenavto('changepassword');">Change Password</div>
-            <div class="mainbutton exit" id="open" onclick="pagenavto('exit');">Exit</div>
+            <div class="mainbutton exit" id="open" onclick="pagenavto('landing');">Exit</div>
         </section>
+
         <section id="duelroom" style="display:none;">
-            <div class="screenbody">
-                <div class="header">
-                    Advanced (unrated)
-                    <div id="au"></div>
-                </div>
-                <div class="header">
-                    Traditional (unrated)
-                    <div id="tu"></div>
-                </div>
-                <div class="header">
-                    Unlimited (unrated)
-                    <div id="uu"></div>
+            <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
+            <div class="row">
+                <div class="col-md-10 lobby-container">
+                    <div class="col-md-3 lobby" style="background: green;">
+                        <div class="lobby-title">Advanced (Unrated)</div>
+                        <div id="au"></div>
+                    </div>
+                    <div class="col-md-3 lobby" style="background: pink;">
+                        <div class="lobby-title">Traditional (Unrated)</div>
+                        <div id="tu"></div>
+                    </div>
+                    <div class="col-md-3 lobby" style="background: lightgray;">
+                        <div class="lobby-title">Unlimited (Unrated)</div>
+                        <div id="uu"></div>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <section id="deckeditor">
+            <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
+        </section>
+
+        <section id="rankings">
+            <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
+        </section>
+
+        <section id="profileviewer">
+            <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
+        </section>
+
+        <section id="myprofile">
+            <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
+        </section>
+
+        <section id="changepassword">
+            <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
+        </section>
+
         <section id="duelfield">
             <div class="field" id="duelzone">
                 <div class="fieldcontainer">

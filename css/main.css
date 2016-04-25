@@ -182,31 +182,48 @@ h1 {
 }
 
 .chatminimize {
-    position: absolute;
+    position: fixed;
     bottom: 40px;
     left: 40px;
     height: 40px;
     width: 40px;
     background: url(../img/pub_chat.svg) center no-repeat;
+    display: none;
 }
 
 .privateminimize {
-    position: absolute;
+    position: fixed;
     bottom: 40px;
     left: 100px;
     height: 40px;
     width: 40px;
-    background: orange;
     background: url(../img/private_chat.svg) center no-repeat;
+    display: none;
 }
 
 .publicchatlist {
-    position: absolute;
+    position: fixed;
     bottom: 100px;
     left: 40px;
     height: 40px;
     width: 40px;
     background: orange;
+    display: none;
+}
+
+.uibutton {
+    background: rgba(200, 200, 200, .85);
+    width: 7em;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px silver;
+    position: fixed;
+    display: none;
+}
+
+.uiexit {
+    left: 160px;
+    bottom: 40px;
 }
 
 @-webkit-keyframes charlieeee {
@@ -317,4 +334,36 @@ div#socialmedia img:hover {
 
 .mainbutton.exit {
     margin: 2vw 26vw;
+}
+
+.backbutton {
+    background: red;
+    float: right;
+    width: 4vw;
+    text-align: center;
+    font-size: 3vh;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow:inset 0px 0px 15px white;
+    border: 5px solid white;
+}
+
+.lobby {
+    width: 33%;
+    border: 5px solid white;
+    border-radius: 10px;
+    margin: 2vw;
+}
+
+.lobby-title {
+    font-weight: bold;
+    font-size: 3vh;
+    color:black;
+    text-align: center;
+}
+
+.lobby-container {
+    display: inline-flex;
+    width: 100%;
 }

@@ -36,9 +36,16 @@ function pagenavto(target) {
     $('#' + target).css('display', 'block').addClass('activescreen');
     previousLocation = target;
     if (target !== 'landing') {
-        $('#camera').css('display', 'block');
+        $('#camera, .publicchatlist, .privateminimize, .chatminimize').css('display', 'block');
     } else {
-        $('#camera').css('display', 'none');
+        $('#camera, .publicchatlist, .privateminimize, .chatminimize').css('display', 'none');
+    }
+    if ('deckeditor') {
+
+    }
+    if ('ranking') {}
+    if ('profileviewer') {
+
     }
     return false;
 }
