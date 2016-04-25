@@ -20,7 +20,7 @@ nav ol {
 .catchadream {
     background-image: -webkit-linear-gradient(left, red, orange, yellow, blue, lightgreen, green, yellow, orange, red, green, green, green, green, green, green, green, green, green, yellow, green, lightgreen, green, green);
     -webkit-animation: charlieeee 10s forwards linear infinite;
-    animation: charlieeee 2.5s forwards linear infinite;
+    animation: charlieeee 2.5s forwards linear ease infinite;
     background-size: 50% auto;
 }
 
@@ -33,6 +33,31 @@ main > section {
 
 main {
     background: url(../img/bg.png)
+}
+
+#duelinglogo {
+    animation: dueling 5s reverse infinite;
+    width: 40vw;
+    float: left;
+    clear: left;
+    background-image: url(../img/dueling1.png);
+    height: 16vh;
+    background-size: cover;
+    border: contain;
+    background-repeat: no-repeat;
+    webkit-transition: background-image 300ms;
+}
+
+#networklogo {
+    animation: network 5s reverse infinite;
+    width: 40vw;
+    float: left;
+    clear: left;
+    background-image: url(../img/network1.png);
+    height: 16vh;
+    background-size: contain;
+    border: none;
+    background-repeat: no-repeat;
 }
 
 main > section {
@@ -164,6 +189,30 @@ h1 {
     }
 }
 
+@-webkit-keyframes dueling {
+    0% {
+        background-image: url(../img/dueling1.png);
+    }
+    80% {
+        background-image: url(../img/dueling2.png);
+    }
+    90% {
+        background-image: url(../img/dueling1.png);
+    }
+}
+
+@-webkit-keyframes network {
+    0% {
+        background-image: url(../img/network1.png);
+    }
+    80% {
+        background-image: url(../img/network2.png);
+    }
+    90% {
+        background-image: url(../img/network1.png);
+    }
+}
+
 div#mainmenutitle {
     font-size: 7vh;
     color: white;
@@ -183,6 +232,19 @@ div#mainmenutitle {
     box-shadow: inset 0px 0px 70px white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+div#socialmedia {
+    position: absolute;
+    bottom: 2vh;
+    right: 10vw;
+    height: 30px;
+}
+
+div#socialmedia img {
+    background: white;
+    height: 30px;
+    width: 30px;
 }
 
 form#formLogin {
