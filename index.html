@@ -139,6 +139,7 @@
             <div class="mainbutton" id="openprofileviewer" onclick="pagenavto('profileviewer');">Profile Viewer</div>
             <div class="mainbutton" id="openmyprofile" onclick="pagenavto('myprofile');">My Profile</div>
             <div class="mainbutton" id="openchangepassword" onclick="pagenavto('changepassword');">Change Password</div>
+            <div class="mainbutton" id="openadminpanel" onclick="pagenavto('adminoptions');">Admin Options</div>
             <div class="mainbutton exit" id="open" onclick="pagenavto('landing');">Exit</div>
         </section>
 
@@ -211,7 +212,55 @@
             <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
             <div class='uibutton uiexit' onclick="pagenavto('mainscreen')">Exit</div>
         </section>
-
+        
+        <section id="adminoptions">
+            <div class="adminui greenbox">
+                <div>Ban Status</div>
+                Username:
+                <input type="text" minlength="1" maxlength="20" id="acpstatususer">
+                <br/>
+                <div class="adminui textbox">
+                    <div id="acpstatustext">
+                    </div>
+                </div>
+            </div>
+            <div class="adminui redbox">
+                <div>Ban User</div>
+                Username:
+                <input type="text" minlength="1" maxlength="20" id="acpbanname">
+                Public Reason:
+                <select name="publicreason">
+                    <option value="cheating">Cheating</option>
+                    <option value="maliciousafk">Malicious AFK</option>
+                    <option value="lying">Lying to an administrator</option>
+                    <option value="boosting">Boosting</option>
+                    <option value="majorharass">Harassment (Major)</option>
+                    <option value="severeharass">Harassment (Severe)</option>
+                    <option value="adminbuttonmisuse">Call Admin Button Misuse</option>
+                    <option value="trolling">Trolling (Major)</option>
+                    <option value="majorspam">Spam (Major)</option>
+                    <option value="severespam">Spam (Severe)</option>
+                    <option value="personalprofile">Personal Profile</option>
+                    <option value="lurking">Lurking for sexual purposes</option>
+                    <option value="personalinformation">Personal Information</option>
+                    <option value="objectionablematerial">Objectionable Material</option>
+                    <option value="inappropriatename">Inappropriate Username</option>
+                    <option value="yugiohcustoms">Yu-Gi-Oh! Customs</option>
+                    <option value="adminimpersonation">Admin Impersonation</option>
+                    <option value="hacking">Hacking</option>
+                    <option value="wagering">Wagering</option>
+                    <option value="fakingevidence">Faking Evidence</option>
+                    <option value="examcheating">Exam Cheating/Disclosure</option>
+                    <option value="multiaccs">Multiple Accounts</option>
+                </select>
+                <br/>
+                Private Reason:
+                <input type="text" id="acpbanreason">
+                <br/>
+                <input type="button" value="Ban User" id="acpbanuser">
+            </div>
+        </section>
+        
         <section id="duelfield">
             <div class="field" id="duelzone">
                 <div class="fieldcontainer">
