@@ -29,6 +29,8 @@ body,
 main,
 main > section {
     height: 100%;
+    overflow: hidden;
+    /*prevent anything off the page from being displayed*/
 }
 
 main {
@@ -51,6 +53,12 @@ a#ruleslink {
     font-size: 1.5em;
     color: hotpink;
     text-decoration: none;
+}
+
+#introanimation {
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 #news {
