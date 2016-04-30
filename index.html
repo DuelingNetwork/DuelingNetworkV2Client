@@ -78,22 +78,28 @@
             <a id="ruleslink" target="_blank" href="http://forum.duelingnetwork.com/index.php?/cp/7-rules-and-punishments">Rules</a>
             <footer id="entryfooter">This site is in no way affliated with Konami &reg; or the Yu-Gi-Oh! Trading Card Game</footer>
             <form id="formLogin" method="post" target="login_frame" class="displayform activeform" style="float:left; clear:left">
-                Username:
-                <br/>
-                <input type="text" name="username">
-                <br/> Password:
-                <br/>
-                <input type="password" name="password">
-                <br/> Remember Me:
-                <input type="checkbox" name="rememberMe" checked>
-                <br/>
-                <input type="submit" value="Login">
-                <br/>
-                <div style="width: 50%;">
-                    <a id="registerButton" style="color: blue; text-decoration: underline;">register</a>
+                <div class="textline">
+                    <span>Username:</span>
+                    <input type="text" name="username">
                 </div>
-                <div style="width: 50%;">
-                    <a id="forgotPWButton" style="color: blue; text-decoration: underline;">forgot password?</a>
+                <div class="textline">
+                    <span>Password:</span>
+                    <input type="password" name="password">
+                </div>
+                <div class="textline">
+                    <span>Remember Me:</span>
+                    <input type="checkbox" name="rememberMe" checked>
+                </div>
+                <div class="textline">
+                    <input type="submit" value="Login">
+                </div>
+                <div class="textline">
+                    <div style="width: 50%; float:left;">
+                        <a id="registerButton" style="color: blue; text-decoration: underline;">register</a>
+                    </div>
+                    <div style="width: 50%; float:left">
+                        <a id="forgotPWButton" style="color: blue; text-decoration: underline;">forgot password?</a>
+                    </div>
                 </div>
             </form>
             <form id="formRegister" class="displayform">

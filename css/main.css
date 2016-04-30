@@ -120,6 +120,22 @@ main > section > .navbar {
     display: block;
 }
 
+.textline input {
+    width: 9em;
+    float: right;
+}
+
+.textline span {
+    float: left;
+}
+
+.textline {
+    /* background: blue; */
+    padding-top: .5em;
+    /* padding-bottom: 1em; */
+    clear: both;
+}
+
 #login {
     float: left;
 }
