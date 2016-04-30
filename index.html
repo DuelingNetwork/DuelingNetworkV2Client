@@ -61,7 +61,11 @@
             <div id="useronlinecount">User Online : </div>
         </div>
         <section id="landing" class="sceen">
-
+            <div id="introanimation">
+                <div id="cardline1"></div>
+                <div id="cardline2"></div>
+                <div id="cardline3"></div>
+            </div>
             <img src="img/envoy_of_the_beginning.png" alt="" style="float:right; height:100%;">
             <img src="img/Yugioh-Logo.png" alt="" style="float:left; height:33%;">
             <div id="duelinglogo"></div>
@@ -212,7 +216,7 @@
             <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
             <div class='uibutton uiexit' onclick="pagenavto('mainscreen')">Exit</div>
         </section>
-        
+
         <section id="adminoptions">
             <div class="adminui greenbox">
                 <div>Ban Status</div>
@@ -227,8 +231,7 @@
             <div class="adminui redbox">
                 <div>Ban User</div>
                 Username:
-                <input type="text" minlength="1" maxlength="20" id="acpbanname">
-                Public Reason:
+                <input type="text" minlength="1" maxlength="20" id="acpbanname"> Public Reason:
                 <select name="publicreason">
                     <option value="cheating">Cheating</option>
                     <option value="maliciousafk">Malicious AFK</option>
@@ -253,14 +256,13 @@
                     <option value="examcheating">Exam Cheating/Disclosure</option>
                     <option value="multiaccs">Multiple Accounts</option>
                 </select>
-                <br/>
-                Private Reason:
+                <br/> Private Reason:
                 <input type="text" id="acpbanreason">
                 <br/>
                 <input type="button" value="Ban User" id="acpbanuser">
             </div>
         </section>
-        
+
         <section id="duelfield">
             <!-- dont touch this without reading gui.js- -->
             <div class="field" id="duelzone">
