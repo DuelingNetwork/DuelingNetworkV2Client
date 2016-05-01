@@ -4,7 +4,7 @@
 var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', //request base for DN's HTTP API
     previousLocation = '', //purposely a global.
     serverConnection = {}, //socket connection to DN.
-    loginData,
+
     heartbeatInterval,
     adminColrs = {
         0: '',
@@ -43,11 +43,13 @@ function pagenavto(target) {
         $('#camera, .publicchatlist, .privateminimize, .chatminimize').css('display', 'none');
     }
     if (target === 'deckeditor') {
-
+        return;
     }
-    if (target === 'ranking') {}
+    if (target === 'ranking') {
+        return;
+    }
     if (target === 'profileviewer') {
-
+        return;
     }
     return false;
 }
@@ -57,7 +59,7 @@ function sendRequest(request) {
     serverConnection.send(JSON.stringify(request));
 }
 
-function onDNSocketConnect() {
+function onDNSocketConnect(loginData) {
     'use strict';
     console.log("open");
     var request = {
@@ -78,34 +80,20 @@ function onDNSocketConnect() {
     }, 30000);
 }
 
-function onDNSocketData(message) {
+function handleNotification(notification) {
     'use strict';
-    var user,
-        data;
-    console.log(message);
-    try {
-        data = JSON.parse(message.data);
-    } catch (parse_error) {
-        console.log('Could not parse:', message.data);
-        return;
-    }
-    console.log(data);
-    if (data.isNotification) {
-        handleNotification(data);
-        return;
-    }
-    if (!menuInited) {
-        handleLoginResponse(data);
-        return;
-    }
-    // TODO: handle other responses
-}
-
-function handleNotification(not) {
     console.log('notification');
+    switch (notification.name) {
+    case ('chat-unlock'):
+        break;
+    default:
+        return;
+    }
 }
 
 function handleLoginResponse(resp) {
+    'use strict';
+    var user;
     if (!resp.success) {
         // TODO: Render an error message.
         console.log('login error: ' + resp.error);
@@ -125,6 +113,33 @@ function handleLoginResponse(resp) {
     $('#useronlinecount').text('Users Online: ' + onlineUserCount);
 }
 
+function onDNSocketData(message) {
+    'use strict';
+    var user,
+        data;
+    try {
+        data = JSON.parse(message.data);
+    } catch (parse_error) {
+        console.log('Could not parse:', message.data);
+        return;
+    }
+    console.log(data);
+    if (data.isNotification) {
+        handleNotification(data);
+        return;
+    }
+    if (!menuInited) {
+        handleLoginResponse(data);
+        return;
+    }
+    if (data.error) {
+        alert(data.error);
+    }
+    // TODO: handle other responses
+}
+
+
+
 function onDNSocketError() {
     'use strict';
 }
@@ -137,10 +152,12 @@ function onDNSocketClose() {
     menuInited = false;
 }
 
-function initDNSocket() {
+function initDNSocket(loginData) {
     'use strict';
     serverConnection = new WebSocket("ws://duelingnetwork.com:1236/");
-    serverConnection.onopen = onDNSocketConnect;
+    serverConnection.onopen = function () {
+        onDNSocketConnect(loginData);
+    };
     serverConnection.onerror = onDNSocketError;
     serverConnection.onmessage = onDNSocketData;
     serverConnection.onclose = onDNSocketClose;
@@ -154,7 +171,7 @@ function logout() {
         if (data.success) {
             pagenavto('mainscreen');
             if (rememberMe) {
-
+                return;
             }
         }
     });
@@ -176,14 +193,13 @@ $('#formLogin').submit(function (event) {
     $.post(httpBase + "login", input, function (data) {
         console.log(data);
         if (data.success) {
-
             if (rememberMe) {
 
             }
             if (data.admin) {
                 $('#adminlogin' + data.admin).css('display', 'block');
             } else {
-                initDNSocket();
+                initDNSocket(data);
             }
 
         }
@@ -213,6 +229,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
         $('#chat input').val('');
     });
     $('#chat input').keyup(function (e) {
+        console.log(e.keyCode);
         if (e.keyCode == 13) {
             $(this).trigger("enterKey");
         }
