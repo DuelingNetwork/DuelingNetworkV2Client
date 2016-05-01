@@ -38,9 +38,9 @@ function pagenavto(target) {
     $('#' + target).css('display', 'block').addClass('activescreen');
     previousLocation = target;
     if (target !== 'landing') {
-        $('#camera, .publicchatlist, .privateminimize, .chatminimize').css('display', 'block');
+        $('#camera, .onlinelistminimize, .privateminimize, .chatminimize').css('display', 'block');
     } else {
-        $('#camera, .publicchatlist, .privateminimize, .chatminimize').css('display', 'none');
+        $('#camera, .onlinelistminimize, .privateminimize, .chatminimize').css('display', 'none');
     }
     if (target === 'deckeditor') {
         return;
@@ -54,9 +54,6 @@ function pagenavto(target) {
     return false;
 }
 
-function speak() {
-
-}
 
 function sendRequest(request) {
     'use strict';
@@ -79,7 +76,7 @@ function onDNSocketConnect(loginData) {
         };
     sendRequest(request);
     heartbeatInterval = setInterval(function () {
-        console.log("sending heartbeat");
+        //console.log("sending heartbeat");
         sendRequest(heartbeatRequest);
     }, 30000);
 }
@@ -120,7 +117,8 @@ function handleLoginResponse(resp) {
         }
         onlineUserCount = Object.keys(userlist).length;
     }
-    $('#useronlinecount').text('Users Online: ' + onlineUserCount);
+    renderUserList();
+
 }
 
 function onDNSocketData(message) {
@@ -179,7 +177,7 @@ function initDNSocket(loginData) {
 }
 
 function logout() {
-    //'dont use strict';
+    'use strict';
     $.post(httpBase + "logout", {}, function (data) {
         console.log(data);
         if (data.success) {
@@ -192,6 +190,14 @@ function logout() {
 }
 
 function renderUserList() {
+    var i,
+        user;
+    $("#onlineusers ul").html('');
+    for (i = 0; onlineUsers.length > i; i++) {
+        user = onlineUsers[i];
+        $("#onlineusers ul").append('<li><span class="username ' + user.currentAdminRole + '">' + user.username + '</span></li>');
+    }
+    $('#useronlinecount').text('Users Online: ' + onlineUsers.length);
 
 }
 
@@ -207,9 +213,9 @@ $('#formLogin').submit(function (event) {
     $.post(httpBase + "login", input, function (data) {
         console.log(data);
         if (data.success) {
-            if (rememberMe) {
 
-            }
+            localStorage.rememberMe = rememberMe;
+
             if (data.admin) {
                 $('#adminlogin' + data.admin).css('display', 'block');
             } else {
@@ -239,23 +245,25 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
     $('#chat input').bind("enterKey", function (e) {
         var message = $('#chat input').val().replace(/\,/g, '\\,');
-        sendRequest({
-                name: "global-message",
-                data: {
-                    message: message
-                }
-            })
-            //connection.write('Global message,' + message + '\0');
+        message = {
+            name: "global-message",
+            data: {
+                message: message
+            }
+        };
+        sendRequest(message);
         $('#chat input').val('');
     });
     $('#chat input').keyup(function (e) {
-        console.log(e.keyCode);
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
             $(this).trigger("enterKey");
         }
     });
-    $('.chatminimize, .minimize').on('click', function () {
+    $('.chatminimize, #chat .minimize').on('click', function () {
         $('#chat').toggle();
+    });
+    $('.onlinelistminimize, #onlineusers .minimize').on('click', function () {
+        $('#onlineusers').toggle();
     });
     $('#formRegister').submit(function (event) {
         $.post(httpBase + "register", $(this).serialize(), function (data) {

@@ -150,6 +150,17 @@ main > section > .navbar {
     z-index: 49;
 }
 
+#onlineusers {
+    position: absolute;
+    top: 0;
+    left: 274px;
+    height: 75%;
+    background: white;
+    width: 254px;
+    resize: both;
+    z-index: 49;
+}
+
 h1 {
     font-size: 80px;
     height: 10%;
@@ -158,6 +169,15 @@ h1 {
 }
 
 #chat h2 {
+    height: 10%;
+    padding: 8px 5px;
+    margin: 0;
+    background: blue;
+    width: 100%;
+    color: white;
+}
+
+#onlineusers h2 {
     height: 10%;
     padding: 8px 5px;
     margin: 0;
@@ -188,6 +208,23 @@ h1 {
     word-wrap: break-word;
 }
 
+#useronlinecount {
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid black;
+    width: 100%;
+}
+
+#onlineusers ul {
+    list-style: none;
+    padding: 0 5px;
+    height: 81%;
+    overflow-y: scroll;
+    margin: 0;
+    resize: none;
+    word-wrap: break-word;
+}
+
 #chat span {
     font-weight: bold;
 }
@@ -205,6 +242,19 @@ h1 {
     position: absolute;
     top: 6px;
     right: 13px;
+    box-shadow: inset 0 0 16px rgba(0, 0, 0, .5);
+    border-radius: 6px;
+}
+
+.minimize:after {
+    width: 20px;
+    height: 4px;
+    position: absolute;
+    background: white;
+    z-index: 100;
+    content: "";
+    left: 5px;
+    bottom: 5px;
 }
 
 .chatminimize {
@@ -227,7 +277,7 @@ h1 {
     display: none;
 }
 
-.publicchatlist {
+.onlinelistminimize {
     position: fixed;
     bottom: 90px;
     left: 40px;
