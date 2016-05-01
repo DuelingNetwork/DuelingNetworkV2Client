@@ -7,64 +7,64 @@ var sound = {};
 
         document.getElementById(targetID).play();
     };
-    sound.activateCard = function ({
-        play.sound('soundactivateCard');
-    })
-    sound.attack = function ({
-        play.sound('soundattack');
-    })
-    sound.banishCard = function ({
-        play.sound('soundbanishCard');
-    })
-    sound.cardShuffle = function ({
-        play.sound('soundcardShuffle');
-    })
-    sound.changeLifePoints = function ({
-        play.sound('soundchangeLifePoints');
-    })
-    sound.drawCard = function ({
-        play.sound('sounddrawCard');
-    })
-    sound.endDuelAdminLoss = function ({
-        play.sound('soundendDuelAdminLoss');
-    })
-    sound.endDuelLoss = function ({
-        play.sound('soundendDuelLoss');
-    })
-    sound.endDuelVictory = function ({
-        play.sound('soundendDuelVictory');
-    })
-    sound.endTurn = function ({
-        play.sound('soundendTurn');
-    })
-    sound.flipCoin = function ({
-        play.sound('soundflipCoin');
-    })
-    sound.flipSummon = function ({
-        play.sound('soundflipSummon');
-    })
-    sound.incomingPrivateMessage = function ({
-        play.sound('soundincomingPrivateMessage');
-    })
-    sound.matchVictory = function ({
-        play.sound('sound');
-    })
-    sound.outgoingPrivateMessage = function ({
-        play.sound('soundmatchVictory');
-    })
-    sound.rollDie = function ({
-        play.sound('soundrollDie');
-    })
-    sound.setCard = function ({
-        play.sound('soundsetCard');
-    })
-    sound.specialSummonFromExtra = function ({
-        play.sound('soundspecialSummonFromExtra');
-    })
-    sound.summonCard = function ({
-        play.sound('soundsummonCard');
-    })
-    sound.takeScreenshot = function ({
-        play.sound('soundtakeScreenshot');
-    })
+    sound.activateCard = function () {
+        sound.play('soundactivateCard');
+    };
+    sound.attack = function () {
+        sound.play('soundattack');
+    };
+    sound.banishCard = function () {
+        sound.play('soundbanishCard');
+    };
+    sound.cardShuffle = function () {
+        sound.play('soundcardShuffle');
+    };
+    sound.changeLifePoints = function () {
+        sound.play('soundchangeLifePoints');
+    };
+    sound.drawCard = function () {
+        sound.play('sounddrawCard');
+    };
+    sound.endDuelAdminLoss = function () {
+        sound.play('soundendDuelAdminLoss');
+    };
+    sound.endDuelLoss = function () {
+        sound.play('soundendDuelLoss');
+    };
+    sound.endDuelVictory = function () {
+        sound.play('soundendDuelVictory');
+    };
+    sound.endTurn = function () {
+        sound.play('soundendTurn');
+    };
+    sound.flipCoin = function () {
+        sound.play('soundflipCoin');
+    };
+    sound.flipSummon = function () {
+        sound.play('soundflipSummon');
+    };
+    sound.incomingPrivateMessage = function () {
+        sound.play('soundincomingPrivateMessage');
+    };
+    sound.matchVictory = function () {
+        sound.play('sound');
+    };
+    sound.outgoingPrivateMessage = function () {
+        sound.play('soundmatchVictory');
+    };
+    sound.rollDie = function () {
+        sound.play('soundrollDie');
+    };
+    sound.setCard = function () {
+        sound.play('soundsetCard');
+    };
+    sound.specialSummonFromExtra = function () {
+        sound.play('soundspecialSummonFromExtra');
+    };
+    sound.summonCard = function () {
+        sound.play('soundsummonCard');
+    };
+    sound.takeScreenshot = function () {
+        sound.play('soundtakeScreenshot');
+    };
 }());
