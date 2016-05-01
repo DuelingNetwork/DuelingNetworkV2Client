@@ -29,7 +29,7 @@ function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
-};
+}
 
 // UNSAFE with unsafe strings; only use on previously-escaped ones!
 function unescapeHtml(escapedStr) {
@@ -37,8 +37,12 @@ function unescapeHtml(escapedStr) {
     div.innerHTML = escapedStr;
     var child = div.childNodes[0];
     return child ? child.nodeValue : '';
-};
+}
 
+
+function secure() {
+    return;
+}
 
 function getSessionId() {
     'use strict';
