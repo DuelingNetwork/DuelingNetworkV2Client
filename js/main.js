@@ -39,9 +39,6 @@ function unescapeHtml(escapedStr) {
     return child ? child.nodeValue : '';
 };
 
-function secure() {
-    return ()
-}
 
 function getSessionId() {
     'use strict';
@@ -339,10 +336,13 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
         $('.displayform.activeform').removeClass('activeform');
         $('#formLogin').addClass('activeform');
     });
-    
+
     $('#adminswitch').click(function () {
         serverConnection.close();
         isAdminLoggedIn = !isAdminLoggedIn;
         $('#formLogin').submit(); // re-submit the login data and let the code handle everything else
+    });
+    $('[draggable="true"]').draggable({
+        containment: "parent"
     });
 });
