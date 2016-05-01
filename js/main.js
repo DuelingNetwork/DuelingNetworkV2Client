@@ -64,8 +64,7 @@ function onDNSocketConnect() {
             clientVersion: dnClientVersion,
             username: loginData.username,
             loginToken: loginData.loginToken,
-            sessionId: getSessionId() +
-                "dafadfa",
+            sessionId: getSessionId(),
             adminMode: false
         },
         heartbeatRequest = {
