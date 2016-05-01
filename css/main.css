@@ -161,6 +161,24 @@ main > section > .navbar {
     z-index: 49;
 }
 
+.green {
+    font-weight: bold;
+    color: chartreuse;
+    text-shadow: 0px 0px 2px black;
+}
+
+.silver {
+    font-weight: bold;
+    color: silver;
+    text-shadow: 0px 0px 2px black;
+}
+
+.gold {
+    font-weight: bold;
+    color: gold;
+    text-shadow: 0px 0px 2px black;
+}
+
 h1 {
     font-size: 80px;
     height: 10%;

@@ -88,7 +88,7 @@ function handleNotification(notification) {
     case ('chat-unlock'):
         break;
     case ('global-message'):
-        $("#chat ul").append('<li><span class="username adminlevel' + notification.currentAdminRole + '">' + notification.username + '</span>: ' + notification.message.replace(/\\;/g, ',') + '</li>');
+        $("#chat ul").append('<li><span class="' + adminColrs[notification.currentAdminRole] + '">' + notification.username + '</span>: ' + notification.message.replace(/\\;/g, ',') + '</li>');
         $("#chat ul").animate({
             scrollTop: $('#chat ul')[0].scrollHeight
         }, 1000);
@@ -195,7 +195,7 @@ function renderUserList() {
     $("#onlineusers ul").html('');
     for (i = 0; onlineUsers.length > i; i++) {
         user = onlineUsers[i];
-        $("#onlineusers ul").append('<li><span class="username ' + user.currentAdminRole + '">' + user.username + '</span></li>');
+        $("#onlineusers ul").append('<li><span class="' + adminColrs[user.currentAdminRole] + '">' + user.username + '</span></li>');
     }
     $('#useronlinecount').text('Users Online: ' + onlineUsers.length);
 
