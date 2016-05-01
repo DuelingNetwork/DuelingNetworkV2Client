@@ -92,7 +92,7 @@ function onDNSocketData(message) {
     console.log(data);
     if (!menuInited) {
         pagenavto('mainscreen');
-        menuInited = truel
+        menuInited = true
     }
     if (data.onlineUsers) {
         onlineUsers = data.onlineUsers;
