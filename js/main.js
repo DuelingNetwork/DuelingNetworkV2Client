@@ -18,6 +18,8 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     onlineUserCount = 0,
     dnClientVersion = 1,
     rememberMe,
+    userIsAdmin = false,
+    isAdminLoggedIn = false,
     menuInited = false;
 
 
@@ -89,7 +91,7 @@ function onDNSocketConnect(loginData) {
             username: loginData.username,
             loginToken: loginData.loginToken,
             sessionId: getSessionId(),
-            adminMode: false
+            adminMode: isAdminLoggedIn
         },
         heartbeatRequest = {
             name: "heartbeat",
@@ -104,7 +106,7 @@ function onDNSocketConnect(loginData) {
 
 function handleNotification(notification) {
     'use strict';
-    console.log('notification');
+    console.log(notification);
     switch (notification.name) {
     case ('chat-unlock'):
         break;
@@ -113,6 +115,18 @@ function handleNotification(notification) {
         $("#chat ul").animate({
             scrollTop: $('#chat ul')[0].scrollHeight
         }, 1000);
+        break;
+    case ('add-user'):
+        // careful: assumption is that the notification looks like
+        // { isNotification: true, name: "add-user", data: { "username": "...", "currentAdminRole": ... }
+        if (onlineUsers.indexOf(notification.data.username) === -1) {
+            onlineUsers.push(notification.data);
+        }
+        break;
+    case ('remove-user'):
+        // careful: assumption is that the notification looks like
+        // { isNotification: true, name: "remove-user", data: "username" }
+        onlineUsers.splice(onlineUsers.indexOf(notification.data), 1);
         break;
     default:
         return;
@@ -127,6 +141,8 @@ function handleLoginResponse(resp) {
         console.log('login error: ' + resp.error);
         return;
     }
+    userIsAdmin = resp.admin > 0;
+    isAdminLoggedIn = resp.currentAdminRole > 0;
     pagenavto('mainscreen');
     menuInited = true;
     if (resp.onlineUsers) {
@@ -137,6 +153,12 @@ function handleLoginResponse(resp) {
             }
         }
         onlineUserCount = Object.keys(userlist).length;
+    }
+    if (userIsAdmin) {
+        $('#adminswitch').css('display', 'block');
+        if (isAdminLoggedIn) {
+            $('#openadminpanel').css('display', 'block');
+        }
     }
     renderUserList();
 
@@ -214,6 +236,9 @@ function renderUserList() {
     var i,
         user;
     $("#onlineusers ul").html('');
+    onlineUsers = onlineUsers.sort(function (a, b) {
+        return b - a;
+    });
     for (i = 0; onlineUsers.length > i; i++) {
         user = onlineUsers[i];
         $("#onlineusers ul").append('<li><span class="' + adminColrs[user.currentAdminRole] + '">' + user.username + '</span></li>');
@@ -313,5 +338,11 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     $('.backToLogin').click(function () {
         $('.displayform.activeform').removeClass('activeform');
         $('#formLogin').addClass('activeform');
+    });
+    
+    $('#adminswitch').click(function () {
+        serverConnection.close();
+        isAdminLoggedIn = !isAdminLoggedIn;
+        $('#formLogin').submit(); // re-submit the login data and let the code handle everything else
     });
 });
