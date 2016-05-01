@@ -20,6 +20,27 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     rememberMe,
     menuInited = false;
 
+
+// Use the browser's built-in functionality to quickly and safely escape the
+// string
+function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+};
+
+// UNSAFE with unsafe strings; only use on previously-escaped ones!
+function unescapeHtml(escapedStr) {
+    var div = document.createElement('div');
+    div.innerHTML = escapedStr;
+    var child = div.childNodes[0];
+    return child ? child.nodeValue : '';
+};
+
+function secure() {
+    return ()
+}
+
 function getSessionId() {
     'use strict';
     var chars = ('0123456789abcdef').split(''),
@@ -88,7 +109,7 @@ function handleNotification(notification) {
     case ('chat-unlock'):
         break;
     case ('global-message'):
-        $("#chat ul").append('<li><span class="' + adminColrs[notification.currentAdminRole] + '">' + notification.username + '</span>: ' + notification.message.replace(/\\;/g, ',') + '</li>');
+        $("#chat ul").append('<li><span class="' + adminColrs[notification.currentAdminRole] + '">' + notification.username + '</span>: ' + escapeHtml(notification.message) + '</li>');
         $("#chat ul").animate({
             scrollTop: $('#chat ul')[0].scrollHeight
         }, 1000);
@@ -244,7 +265,7 @@ $('#formForgotPW').submit(function (event) {
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
     $('#chat input').bind("enterKey", function (e) {
-        var message = $('#chat input').val().replace(/\,/g, '\\,');
+        var message = escapeHtml($('#chat input').val());
         message = {
             name: "global-message",
             data: {
