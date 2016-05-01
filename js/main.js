@@ -54,6 +54,10 @@ function pagenavto(target) {
     return false;
 }
 
+function speak() {
+
+}
+
 function sendRequest(request) {
     'use strict';
     serverConnection.send(JSON.stringify(request));
@@ -86,6 +90,12 @@ function handleNotification(notification) {
     switch (notification.name) {
     case ('chat-unlock'):
         break;
+    case ('global-message'):
+        $("#chat ul").append('<li><span class="username adminlevel' + notification.currentAdminRole + '">' + notification.username + '</span>: ' + notification.message.replace(/\\;/g, ',') + '</li>');
+        $("#chat ul").animate({
+            scrollTop: $('#chat ul')[0].scrollHeight
+        }, 1000);
+        break;
     default:
         return;
     }
@@ -117,6 +127,10 @@ function onDNSocketData(message) {
     'use strict';
     var user,
         data;
+    if (message.data === '{"success":true}') {
+        //remove noisy heartbeat
+        return;
+    }
     try {
         data = JSON.parse(message.data);
     } catch (parse_error) {
@@ -225,7 +239,13 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
     $('#chat input').bind("enterKey", function (e) {
         var message = $('#chat input').val().replace(/\,/g, '\\,');
-        //connection.write('Global message,' + message + '\0');
+        sendRequest({
+                name: "global-message",
+                data: {
+                    message: message
+                }
+            })
+            //connection.write('Global message,' + message + '\0');
         $('#chat input').val('');
     });
     $('#chat input').keyup(function (e) {

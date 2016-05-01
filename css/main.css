@@ -147,6 +147,7 @@ main > section > .navbar {
     background: white;
     width: 254px;
     resize: both;
+    z-index: 49;
 }
 
 h1 {
