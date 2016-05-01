@@ -17,7 +17,8 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     onlineUsers,
     onlineUserCount = 0,
     dnClientVersion = 1,
-    rememberMe;
+    rememberMe,
+    menuInited = false;
 
 function getSessionId() {
     'use strict';
@@ -63,7 +64,8 @@ function onDNSocketConnect() {
             clientVersion: dnClientVersion,
             username: loginData.username,
             loginToken: loginData.loginToken,
-            sessionId: getSessionId(),
+            sessionId: getSessionId() +
+                "dafadfa",
             adminMode: false
         },
         heartbeatRequest = {
@@ -89,6 +91,10 @@ function onDNSocketData(message) {
         return;
     }
     console.log(data);
+    if (!menuInited) {
+        pagenavto('mainscreen');
+        menuInited = truel
+    }
     if (data.onlineUsers) {
         onlineUsers = data.onlineUsers;
         for (user in data.onlineUsers) {
@@ -110,6 +116,7 @@ function onDNSocketClose() {
     clearInterval(heartbeatInterval);
     serverConnection = {};
     console.log("close");
+    menuInited = false;
 }
 
 function initDNSocket() {
@@ -150,7 +157,7 @@ $('#formLogin').submit(function (event) {
     $.post(httpBase + "login", input, function (data) {
         console.log(data);
         if (data.success) {
-            pagenavto('mainscreen');
+
             if (rememberMe) {
 
             }
