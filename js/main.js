@@ -90,15 +90,34 @@ function onDNSocketData(message) {
         return;
     }
     console.log(data);
-    if (!menuInited) {
-        pagenavto('mainscreen');
-        menuInited = true
+    if (data.isNotification) {
+        handleNotification(data);
+        return;
     }
-    if (data.onlineUsers) {
-        onlineUsers = data.onlineUsers;
-        for (user in data.onlineUsers) {
-            if (data.onlineUsers.hasOwnProperty(user)) {
-                userlist[user] = data.onlineUsers[user];
+    if (!menuInited) {
+        handleLoginResponse(data);
+        return;
+    }
+    // TODO: handle other responses
+}
+
+function handleNotification(not) {
+  console.log('notification');
+}
+
+function handleLoginResponse(resp) {
+    if (!resp.success) {
+        // TODO: Render an error message.
+        console.log('login error: ' + resp.error);
+        return;
+    }
+    pagenavto('mainscreen');
+    menuInited = true;
+    if (resp.onlineUsers) {
+        onlineUsers = resp.onlineUsers;
+        for (user in resp.onlineUsers) {
+            if (resp.onlineUsers.hasOwnProperty(user)) {
+                userlist[user] = resp.onlineUsers[user];
             }
         }
         onlineUserCount = Object.keys(userlist).length;
