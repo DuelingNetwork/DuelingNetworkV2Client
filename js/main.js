@@ -1,4 +1,4 @@
-/*jslint browser:true*/
+/*jslint browser:true, plusplus : true*/
 /*global $, console, WebSocket, alert*/
 
 var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', //request base for DN's HTTP API
@@ -16,7 +16,8 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     userlist = {},
     onlineUsers,
     onlineUserCount = 0,
-    dnClientVersion = 1;
+    dnClientVersion = 1,
+    rememberMe;
 
 function getSessionId() {
     'use strict';
@@ -40,11 +41,11 @@ function pagenavto(target) {
     } else {
         $('#camera, .publicchatlist, .privateminimize, .chatminimize').css('display', 'none');
     }
-    if ('deckeditor') {
+    if (target === 'deckeditor') {
 
     }
-    if ('ranking') {}
-    if ('profileviewer') {
+    if (target === 'ranking') {}
+    if (target === 'profileviewer') {
 
     }
     return false;
@@ -97,7 +98,7 @@ function onDNSocketData(message) {
         }
         onlineUserCount = Object.keys(userlist).length;
     }
-    $('#useronlinecount').text('Users Online: ' + onlineUserCount)
+    $('#useronlinecount').text('Users Online: ' + onlineUserCount);
 }
 
 function onDNSocketError() {
@@ -133,11 +134,12 @@ function logout() {
     });
 }
 
-function renderUserList () {
-    
+function renderUserList() {
+
 }
 
 function updateMaxChatMessageLength(max) {
+    'use strict';
     $('.affectedbymaxChatMessageLength').attr('maxlength', max);
 }
 
