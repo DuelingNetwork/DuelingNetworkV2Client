@@ -40,7 +40,7 @@ function unescapeHtml(escapedStr) {
 };
 
 function secure() {
-    return ()
+    return;
 }
 
 function getSessionId() {
