@@ -38,3 +38,9 @@ Source code examples can be found in the main project scripts.
  - `message`: Additional message or data sent with the message
  
 This document may be incomplete. I'll review it at a later date.
+
+###Chat
+Globa chat once logged in has the following structure to send a message 
+````JSON
+{ name: "global-message", data: { message: "hello world" } }
+````
