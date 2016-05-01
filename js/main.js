@@ -102,7 +102,7 @@ function onDNSocketData(message) {
 }
 
 function handleNotification(not) {
-  console.log('notification');
+    console.log('notification');
 }
 
 function handleLoginResponse(resp) {
@@ -144,6 +144,7 @@ function initDNSocket() {
     serverConnection.onerror = onDNSocketError;
     serverConnection.onmessage = onDNSocketData;
     serverConnection.onclose = onDNSocketClose;
+    $('.adminlogin').css('display', 'none');
 }
 
 function logout() {
@@ -179,8 +180,12 @@ $('#formLogin').submit(function (event) {
             if (rememberMe) {
 
             }
-            loginData = data;
-            initDNSocket();
+            if (data.admin) {
+                $('#adminlogin' + data.admin).css('display', 'block');
+            } else {
+                initDNSocket();
+            }
+
         }
     });
     event.preventDefault();
