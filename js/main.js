@@ -2,10 +2,7 @@
 /*global $, console, WebSocket, alert*/
 
 var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', //request base for DN's HTTP API
-    previousLocation = '', //purposely a global.
-    serverConnection = {}, //socket connection to DN.
 
-    heartbeatInterval,
     adminColrs = {
         0: '',
         1: 'green',
@@ -13,6 +10,9 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
         3: 'gold',
         4: 'gold'
     },
+    serverConnection = null, //socket connection to DN.
+    previousLocation = '', //purposely a global.
+    heartbeatInterval,
     onlineUsers,
     friends = [],
     onlineFriends = [],
@@ -23,7 +23,22 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     userIsAdmin = false,
     isAdminLoggedIn = false,
     menuInited = false;
-
+    
+function initDefaults () {
+    serverConnection = null;
+    previousLocation = '';
+    heartbeatInterval;
+    onlineUsers;
+    friends = [];
+    onlineFriends = [];
+    onlineUserCount = 0;
+    dnClientVersion = 1;
+    lastLoginData;
+    rememberMe;
+    userIsAdmin = false;
+    isAdminLoggedIn = false;
+    menuInited = false;
+}
 
 // Use the browser's built-in functionality to quickly and safely escape the
 // string
@@ -216,9 +231,10 @@ function onDNSocketError() {
 function onDNSocketClose() {
     'use strict';
     clearInterval(heartbeatInterval);
-    serverConnection = null; // reintroducing null for checks
     console.log("close");
-    menuInited = false;
+    initDefaults();
+    $('#chat').hide();
+    $('#onlineusers').hide();
 }
 
 function initDNSocket(loginData) {
