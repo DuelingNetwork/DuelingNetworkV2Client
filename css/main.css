@@ -181,6 +181,11 @@ main > section > .navbar {
     text-shadow: 0px 0px 2px black;
 }
 
+.friend {
+    font-weight: bold;
+    color: blue;
+}
+
 h1 {
     font-size: 80px;
     height: 10%;
@@ -537,4 +542,13 @@ div#socialmedia img:hover {
 .lobby-container {
     display: inline-flex;
     width: 100%;
+}
+
+#adminswitchcontainer {
+    display: none;
+}
+
+#openadminpanel {
+    display: none;
+    background: red;
 }

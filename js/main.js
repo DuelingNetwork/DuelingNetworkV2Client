@@ -18,6 +18,7 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     onlineFriends = [],
     onlineUserCount = 0,
     dnClientVersion = 1,
+    lastLoginData,
     rememberMe,
     userIsAdmin = false,
     isAdminLoggedIn = false,
@@ -167,9 +168,10 @@ function handleLoginResponse(resp) {
         }
     }
     if (userIsAdmin) {
-        $('#adminswitch').css('display', 'block');
+        $('#adminswitchcontainer').css('display', 'block');
         if (isAdminLoggedIn) {
             $('#openadminpanel').css('display', 'block');
+            // TODO: fix up the display buttons when logged in as admin
         }
     }
     renderUserList();
@@ -214,7 +216,7 @@ function onDNSocketError() {
 function onDNSocketClose() {
     'use strict';
     clearInterval(heartbeatInterval);
-    serverConnection = {};
+    serverConnection = null; // reintroducing null for checks
     console.log("close");
     menuInited = false;
 }
@@ -252,7 +254,10 @@ function renderUserList() {
     $("#onlineusers ul").html('');
     onlineUsers = onlineUsers.sort(function (a, b) {
         if (a.currentAdminRole > 0 || b.currentAdminRole > 0) {
-            return a.currentAdminRole - b.currentAdminRole;
+            if (a.currentAdminRole === b.currentAdminRole) {
+                return a.username > b.username;
+            }
+            return b.currentAdminRole - a.currentAdminRole;
         }
         return a.username > b.username;
     });
@@ -286,7 +291,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
             if (data.success) {
             
                 localStorage.rememberMe = rememberMe;
-                
+                lastLoginData = data;
                 /*if (data.admin) {
                     $('#adminlogin' + data.admin).css('display', 'block');
                 } else {
@@ -366,9 +371,16 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     });
 
     $('#adminswitch').click(function () {
-        serverConnection.close();
-        isAdminLoggedIn = !isAdminLoggedIn;
-        $('#formLogin').submit(); // re-submit the login data and let the code handle everything else
+        if (serverConnection !== null) {
+            serverConnection.onclose = function () {};
+            serverConnection.close();
+            clearInterval(heartbeatInterval);
+            serverConnection = null;
+            menuInited = false;
+            // TODO: make this look less complicated...
+            isAdminLoggedIn = !isAdminLoggedIn;
+            initDNSocket(lastLoginData);
+        }
     });
     $('[draggable="true"]').draggable({
         containment: "parent"
