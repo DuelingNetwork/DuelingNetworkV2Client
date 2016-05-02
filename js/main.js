@@ -299,6 +299,7 @@ function updateMaxChatMessageLength(max) {
 }
 
 function modalBox (message) {
+    // TODO: make this box properly modal
     $('<div class="modalContainer"><div class="modalBox"><div class="modalMessage">' + message + '</div><div class="modalOKButton">OK</div></div></div>').appendTo(document.body);
     $('.modalOKButton').click(function () {
         $(this).parent().parent().remove();
@@ -325,6 +326,8 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
                 // TODO: discuss admin login; for now just init the socket anyway
                 initDNSocket(data);
                 
+            } else {
+                modalBox(data.error);
             }
         });
         event.preventDefault();
@@ -335,7 +338,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
         $.post(httpBase + "forgot_password", $(this).serialize(), function (data) {
             console.log(data);
             if (data.success) {
-                alert(data.message); // TODO: display this somewhere useful
+                modalBox(data.message);
                 $('.backToLogin').click(); // eh... could also be made better
             } else {
                 modalBox(data.error);
