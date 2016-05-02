@@ -13,6 +13,7 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     serverConnection = null, //socket connection to DN.
     previousLocation = '', //purposely a global.
     heartbeatInterval,
+    requests = [],
     onlineUsers,
     friends = [],
     onlineFriends = [],
@@ -28,6 +29,7 @@ function initDefaults () {
     serverConnection = null;
     previousLocation = '';
     heartbeatInterval;
+    requests = [];
     onlineUsers;
     friends = [];
     onlineFriends = [];
@@ -99,6 +101,7 @@ function pagenavto(target) {
 function sendRequest(request) {
     'use strict';
     serverConnection.send(JSON.stringify(request));
+    requests.push(request);
 }
 
 function onDNSocketConnect(loginData) {
@@ -193,6 +196,10 @@ function handleLoginResponse(resp) {
 
 }
 
+function handleRequestResponse (data) {
+    console.log(data);
+}
+
 function onDNSocketData(message) {
     'use strict';
     var user,
@@ -208,17 +215,20 @@ function onDNSocketData(message) {
         console.log('Could not parse:', message.data);
         return;
     }
-    console.log(data);
+    if (data.error) {
+        modalBox(data.error);
+        return;
+    }
     if (data.isNotification) {
         handleNotification(data);
         return;
     }
+    console.log("Responding to request: ", requests.pop());
     if (!menuInited) {
         handleLoginResponse(data);
         return;
-    }
-    if (data.error) {
-        modalBox(data.error);
+    } else {
+        handleRequestResponse(data);
     }
     // TODO: handle other responses
 }
