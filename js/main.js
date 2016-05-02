@@ -117,16 +117,15 @@ function handleNotification(notification) {
         }, 1000);
         break;
     case ('add-user'):
-        // careful: assumption is that the notification looks like
-        // { isNotification: true, name: "add-user", data: { "username": "...", "currentAdminRole": ... }
-        if (onlineUsers.indexOf(notification.data.username) === -1) {
-            onlineUsers.push(notification.data);
+        if (onlineUsers.indexOf(notification.username) === -1) {
+            onlineUsers.push({
+                username: notification.username,
+                currentAdminRole: notification.currentAdminRole
+            });
         }
         break;
     case ('remove-user'):
-        // careful: assumption is that the notification looks like
-        // { isNotification: true, name: "remove-user", data: "username" }
-        onlineUsers.splice(onlineUsers.indexOf(notification.data), 1);
+        onlineUsers.splice(onlineUsers.indexOf(notification.username), 1);
         break;
     default:
         return;
@@ -252,43 +251,45 @@ function updateMaxChatMessageLength(max) {
     $('.affectedbymaxChatMessageLength').attr('maxlength', max);
 }
 
-$('#formLogin').submit(function (event) {
-    'use strict';
-    var rememberMe = $('[name=rememberMe]').prop('checked'),
-        input = $('#formLogin').serialize(); // this refers to $('#formLogin')-> result.
-    $.post(httpBase + "login", input, function (data) {
-        console.log(data);
-        if (data.success) {
-
-            localStorage.rememberMe = rememberMe;
-
-            if (data.admin) {
-                $('#adminlogin' + data.admin).css('display', 'block');
-            } else {
-                initDNSocket(data);
-            }
-
-        }
-    });
-    event.preventDefault();
-});
-
-$('#formForgotPW').submit(function (event) {
-    'use strict';
-    $.post(httpBase + "forgot_password", $(this).serialize(), function (data) {
-        console.log(data);
-        if (data.success) {
-            alert(data.message); // TODO: display this somewhere useful
-            $('.backToLogin').click(); // eh... could also be made better
-        } else {
-            alert(data.error);
-        }
-    });
-    event.preventDefault();
-});
-
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
+    $('#formLogin').submit(function (event) {
+        'use strict';
+        var rememberMe = $('[name=rememberMe]').prop('checked'),
+            input = $('#formLogin').serialize(); // this refers to $('#formLogin')-> result.
+        $.post(httpBase + "login", input, function (data) {
+            console.log(data);
+            if (data.success) {
+            
+                localStorage.rememberMe = rememberMe;
+                
+                /*if (data.admin) {
+                    $('#adminlogin' + data.admin).css('display', 'block');
+                } else {
+                    initDNSocket(data);
+                }*/
+                // TODO: discuss admin login; for now just init the socket anyway
+                initDNSocket(data);
+                
+            }
+        });
+        event.preventDefault();
+    });
+    
+    $('#formForgotPW').submit(function (event) {
+        'use strict';
+        $.post(httpBase + "forgot_password", $(this).serialize(), function (data) {
+            console.log(data);
+            if (data.success) {
+                alert(data.message); // TODO: display this somewhere useful
+                $('.backToLogin').click(); // eh... could also be made better
+            } else {
+                alert(data.error);
+            }
+        });
+        event.preventDefault();
+    });
+    
     $('#chat input').bind("enterKey", function (e) {
         var message = escapeHtml($('#chat input').val());
         message = {
