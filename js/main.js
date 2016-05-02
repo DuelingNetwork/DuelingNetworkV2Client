@@ -29,7 +29,7 @@ function escapeHtml(str) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
-};
+}
 
 // UNSAFE with unsafe strings; only use on previously-escaped ones!
 function unescapeHtml(escapedStr) {
@@ -37,7 +37,8 @@ function unescapeHtml(escapedStr) {
     div.innerHTML = escapedStr;
     var child = div.childNodes[0];
     return child ? child.nodeValue : '';
-};
+}
+
 
 function secure() {
     return;
@@ -340,10 +341,13 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
         $('.displayform.activeform').removeClass('activeform');
         $('#formLogin').addClass('activeform');
     });
-    
+
     $('#adminswitch').click(function () {
         serverConnection.close();
         isAdminLoggedIn = !isAdminLoggedIn;
         $('#formLogin').submit(); // re-submit the login data and let the code handle everything else
+    });
+    $('[draggable="true"]').draggable({
+        containment: "parent"
     });
 });

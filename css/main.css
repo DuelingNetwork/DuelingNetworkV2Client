@@ -159,6 +159,8 @@ main > section > .navbar {
     width: 254px;
     resize: both;
     z-index: 49;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 .green {
@@ -202,6 +204,8 @@ h1 {
     background: blue;
     width: 100%;
     color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 #chat input[type="text"] {
@@ -214,6 +218,13 @@ h1 {
     height: 75%;
     resize: both;
     overflow: auto;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#online users {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 #chat ul {
@@ -442,6 +453,10 @@ div#mainmenutitle {
     box-shadow: inset 0px 0px 70px white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.mainbutton:hover {
+    background: seagreen;
 }
 
 div#socialmedia {
