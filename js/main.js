@@ -159,8 +159,8 @@ function handleLoginResponse(resp) {
     'use strict';
     var user;
     if (!resp.success) {
-        // TODO: Render an error message.
         console.log('login error: ' + resp.error);
+        modalBox(resp.error);
         return;
     }
     pagenavto('mainscreen');
@@ -204,6 +204,7 @@ function onDNSocketData(message) {
     try {
         data = JSON.parse(message.data);
     } catch (parse_error) {
+        modalBox("Malformed server response");
         console.log('Could not parse:', message.data);
         return;
     }
@@ -217,7 +218,7 @@ function onDNSocketData(message) {
         return;
     }
     if (data.error) {
-        alert(data.error);
+        modalBox(data.error);
     }
     // TODO: handle other responses
 }
@@ -226,6 +227,7 @@ function onDNSocketData(message) {
 
 function onDNSocketError() {
     'use strict';
+    modalBox("DN Socket error. Please consider refreshing the page.");
 }
 
 function onDNSocketClose() {
@@ -296,6 +298,13 @@ function updateMaxChatMessageLength(max) {
     $('.affectedbymaxChatMessageLength').attr('maxlength', max);
 }
 
+function modalBox (message) {
+    $('<div class="modalContainer"><div class="modalBox"><div class="modalMessage">' + message + '</div><div class="modalOKButton">OK</div></div></div>').appendTo(document.body);
+    $('.modalOKButton').click(function () {
+        $(this).parent().parent().remove();
+    });
+}
+
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
     $('#formLogin').submit(function (event) {
@@ -329,7 +338,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
                 alert(data.message); // TODO: display this somewhere useful
                 $('.backToLogin').click(); // eh... could also be made better
             } else {
-                alert(data.error);
+                modalBox(data.error);
             }
         });
         event.preventDefault();
@@ -361,10 +370,10 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
         $.post(httpBase + "register", $(this).serialize(), function (data) {
             console.log(data);
             if (data.success) {
-                alert(data.message); // TODO: display this somewhere useful
+                modalBox(data.message);
                 $('.backToLogin').click(); // eh... could also be made better
             } else {
-                alert(data.error);
+                modalBox(data.error);
             }
         });
 
@@ -387,14 +396,13 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     });
 
     $('#adminswitch').click(function () {
+        var previousAdminLoggedIn = isAdminLoggedIn;
         if (serverConnection !== null) {
             serverConnection.onclose = function () {};
             serverConnection.close();
             clearInterval(heartbeatInterval);
-            serverConnection = null;
-            menuInited = false;
-            // TODO: make this look less complicated...
-            isAdminLoggedIn = !isAdminLoggedIn;
+            initDefaults();
+            isAdminLoggedIn = !previousAdminLoggedIn;
             initDNSocket(lastLoginData);
         }
     });
