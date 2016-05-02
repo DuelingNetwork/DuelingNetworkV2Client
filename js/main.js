@@ -13,8 +13,9 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
         3: 'gold',
         4: 'gold'
     },
-    userlist = {},
     onlineUsers,
+    friends = [],
+    onlineFriends = [],
     onlineUserCount = 0,
     dnClientVersion = 1,
     rememberMe,
@@ -118,15 +119,20 @@ function handleNotification(notification) {
         }, 1000);
         break;
     case ('add-user'):
-        if (onlineUsers.indexOf(notification.username) === -1) {
-            onlineUsers.push({
-                username: notification.username,
-                currentAdminRole: notification.currentAdminRole
-            });
-        }
+        onlineUsers.push({
+            username: notification.username,
+            currentAdminRole: notification.currentAdminRole
+        });
+        renderUserList();
         break;
     case ('remove-user'):
-        onlineUsers.splice(onlineUsers.indexOf(notification.username), 1);
+        onlineUsers = onlineUsers.filter(function (currentUser) {
+            if (currentUser.username === notification.username) {
+                return false;
+            }
+            return true;
+        });
+        renderUserList();
         break;
     default:
         return;
@@ -141,18 +147,24 @@ function handleLoginResponse(resp) {
         console.log('login error: ' + resp.error);
         return;
     }
-    userIsAdmin = resp.admin > 0;
-    isAdminLoggedIn = resp.currentAdminRole > 0;
     pagenavto('mainscreen');
     menuInited = true;
+    if (resp.admin) {
+        userIsAdmin = resp.admin > 0;
+    }
+    if (resp.currentAdminRole) {
+        isAdminLoggedIn = resp.currentAdminRole > 0;
+    }
     if (resp.onlineUsers) {
         onlineUsers = resp.onlineUsers;
-        for (user in resp.onlineUsers) {
-            if (resp.onlineUsers.hasOwnProperty(user)) {
-                userlist[user] = resp.onlineUsers[user];
-            }
+        onlineUserCount = onlineUsers.length;
+        if (resp.friends) {
+            onlineUsers.forEach(function (currentUser) {
+                if (friends.indexOf(currentUser.username) > -1 && currentUser.currentAdminRole === 0) {
+                    onlineFriends.push(currentUser);
+                }
+            });    
         }
-        onlineUserCount = Object.keys(userlist).length;
     }
     if (userIsAdmin) {
         $('#adminswitch').css('display', 'block');
@@ -234,14 +246,25 @@ function logout() {
 
 function renderUserList() {
     var i,
-        user;
+        n,
+        user,
+        friend;
     $("#onlineusers ul").html('');
     onlineUsers = onlineUsers.sort(function (a, b) {
-        return b - a;
+        if (a.currentAdminRole > 0 || b.currentAdminRole > 0) {
+            return a.currentAdminRole - b.currentAdminRole;
+        }
+        return a.username > b.username;
     });
+    onlineFriends = onlineFriends.sort(function (a, b) {
+        return a.username > b.username;
+    });
+    for (n = 0; onlineFriends.length > n; n++) {
+        $("#onlineusers ul").append('<li><span class="friend">' + escapeHtml(onlineFriends[n].username) + '</span></li>');
+    }
     for (i = 0; onlineUsers.length > i; i++) {
         user = onlineUsers[i];
-        $("#onlineusers ul").append('<li><span class="' + adminColrs[user.currentAdminRole] + '">' + user.username + '</span></li>');
+        $("#onlineusers ul").append('<li><span class="' + adminColrs[user.currentAdminRole] + '">' + escapeHtml(user.username) + '</span></li>');
     }
     $('#useronlinecount').text('Users Online: ' + onlineUsers.length);
 
