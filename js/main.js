@@ -14,6 +14,7 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     previousLocation = '', //purposely a global.
     heartbeatInterval,
     requests = [],
+    handledRequests = [],
     onlineUsers,
     friends = [],
     onlineFriends = [],
@@ -29,15 +30,12 @@ function initDefaults() {
     'use strict';
     serverConnection = null;
     previousLocation = '';
-    //heartbeatInterval;
     requests = [];
-    //onlineUsers;
+    handledRequests = [];
     friends = [];
     onlineFriends = [];
     onlineUserCount = 0;
     dnClientVersion = 1;
-    //lastLoginData;
-    //rememberMe;
     userIsAdmin = false;
     isAdminLoggedIn = false;
     menuInited = false;
@@ -157,7 +155,7 @@ function renderUserList() {
 
 function handleNotification(notification) {
     'use strict';
-    console.log(notification);
+    console.log("Received notification: ", notification);
     switch (notification.name) {
     case ('chat-unlock'):
         break;
@@ -235,19 +233,27 @@ function handleLoginResponse(resp) {
 
 }
 
-function handleRequestResponse(data) {
+function handleRequestResponse(data, requestRespondingTo) {
     'use strict';
-    console.log(data);
+    console.log("Received response to request: ", data, requestRespondingTo);
+    if (data.success) {
+        switch (requestRespondingTo.name) { // check what sort of request was sent
+        // case-fallthrough: all of the following requests do not require client evaluation upon success (or it is handled in a different way like global-message)
+        case "heartbeat":
+        case "global-message":
+        case "private-message":
+            break;
+        // end of case-fallthrough
+        // TODO: handle the other request responses accordingly
+        }
+    }
 }
 
 function onDNSocketData(message) {
     'use strict';
     var user,
-        data;
-    if (message.data === '{"success":true}') {
-        //remove noisy heartbeat
-        return;
-    }
+        data,
+        requestRespondingTo = requests.shift();
     try {
         data = JSON.parse(message.data);
     } catch (parse_error) {
@@ -264,14 +270,13 @@ function onDNSocketData(message) {
         handleNotification(data);
         return;
     }
-    console.log("Responding to request: ", requests.pop());
+    console.log("Responding to request: ", handledRequests.push(requestRespondingTo));
     if (!menuInited) {
         handleLoginResponse(data);
         return;
     } else {
-        handleRequestResponse(data);
+        handleRequestResponse(data, requestRespondingTo);
     }
-    // TODO: handle other responses
 }
 
 
