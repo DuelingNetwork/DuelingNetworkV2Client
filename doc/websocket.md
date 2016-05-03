@@ -41,6 +41,17 @@ This document may be incomplete. I'll review it at a later date.
 
 ###Chat
 Globa chat once logged in has the following structure to send a message 
-````JSON
+````JavaScript
 { name: "global-message", data: { message: "hello world" } }
+````
+
+###Deck Edit
+
+````JavaScript
+{ name: "new-deck", data: {deckName: "new deck name" }}
+{ name: "get-deck", data: {deckName: "deck name" }}
+{ name: "delete-deck", data: {deckNameForDelete: "deck to delete", deckNameForGet: "deck to get" }}
+{ name: "rename-deck", data: {currentDeckName: "old name", newDeckName: "new name" }}
+{ name: "save-deck", data: {deckName: "name", mainDeck: [1,2,3], sideDeck: [1,2,3], extraDeck: [1,2,3], isSaveAs: true}}
+{ name: "set-default-deck", data: {deckName: "new default deck"}}
 ````

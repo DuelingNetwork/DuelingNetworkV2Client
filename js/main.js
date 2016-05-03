@@ -24,19 +24,20 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     userIsAdmin = false,
     isAdminLoggedIn = false,
     menuInited = false;
-    
-function initDefaults () {
+
+function initDefaults() {
+    'use strict';
     serverConnection = null;
     previousLocation = '';
-    heartbeatInterval;
+    //heartbeatInterval;
     requests = [];
-    onlineUsers;
+    //onlineUsers;
     friends = [];
     onlineFriends = [];
     onlineUserCount = 0;
     dnClientVersion = 1;
-    lastLoginData;
-    rememberMe;
+    //lastLoginData;
+    //rememberMe;
     userIsAdmin = false;
     isAdminLoggedIn = false;
     menuInited = false;
@@ -45,6 +46,7 @@ function initDefaults () {
 // Use the browser's built-in functionality to quickly and safely escape the
 // string
 function escapeHtml(str) {
+    'use strict';
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
@@ -52,9 +54,11 @@ function escapeHtml(str) {
 
 // UNSAFE with unsafe strings; only use on previously-escaped ones!
 function unescapeHtml(escapedStr) {
-    var div = document.createElement('div');
+    'use strict';
+    var div = document.createElement('div'),
+        child;
     div.innerHTML = escapedStr;
-    var child = div.childNodes[0];
+    child = div.childNodes[0];
     return child ? child.nodeValue : '';
 }
 
@@ -182,7 +186,7 @@ function handleLoginResponse(resp) {
                 if (friends.indexOf(currentUser.username) > -1 && currentUser.currentAdminRole === 0) {
                     onlineFriends.push(currentUser);
                 }
-            });    
+            });
         }
     }
     if (userIsAdmin) {
@@ -196,7 +200,7 @@ function handleLoginResponse(resp) {
 
 }
 
-function handleRequestResponse (data) {
+function handleRequestResponse(data) {
     console.log(data);
 }
 
@@ -215,6 +219,7 @@ function onDNSocketData(message) {
         console.log('Could not parse:', message.data);
         return;
     }
+    console.log(data); // used for debug,... dont remove.
     if (data.error) {
         modalBox(data.error);
         return;
@@ -308,11 +313,31 @@ function updateMaxChatMessageLength(max) {
     $('.affectedbymaxChatMessageLength').attr('maxlength', max);
 }
 
-function modalBox (message) {
+function modalBox(message) {
     // TODO: make this box properly modal
     $('<div class="modalContainer"><div class="modalBox"><div class="modalMessage">' + message + '</div><div class="modalOKButton">OK</div></div></div>').appendTo(document.body);
     $('.modalOKButton').click(function () {
         $(this).parent().parent().remove();
+    });
+}
+
+function newdeck(name) {
+    'use strict';
+    sendRequest({
+        name: "new-deck",
+        data: {
+            deckName: name
+        }
+    });
+}
+
+function getdeck(name) {
+    'use strict';
+    sendRequest({
+        name: "get-deck",
+        data: {
+            deckName: name
+        }
     });
 }
 
@@ -325,7 +350,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
         $.post(httpBase + "login", input, function (data) {
             console.log(data);
             if (data.success) {
-            
+
                 localStorage.rememberMe = rememberMe;
                 lastLoginData = data;
                 /*if (data.admin) {
@@ -335,14 +360,14 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
                 }*/
                 // TODO: discuss admin login; for now just init the socket anyway
                 initDNSocket(data);
-                
+
             } else {
                 modalBox(data.error);
             }
         });
         event.preventDefault();
     });
-    
+
     $('#formForgotPW').submit(function (event) {
         'use strict';
         $.post(httpBase + "forgot_password", $(this).serialize(), function (data) {
@@ -356,7 +381,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
         });
         event.preventDefault();
     });
-    
+
     $('#chat input').bind("enterKey", function (e) {
         var message = escapeHtml($('#chat input').val());
         message = {
