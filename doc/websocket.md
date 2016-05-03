@@ -43,6 +43,10 @@ This document may be incomplete. I'll review it at a later date.
 Globa chat once logged in has the following structure to send a message 
 ````JavaScript
 { name: "global-message", data: { message: "hello world" } }
+{ name: "private-message", data: {recipient: "someone", message: "hello" }}
+{ name: "add-friend", data: {username: "new friend" }}
+{ name: "delete-friend", data: {username: "old friend" }}
+{ name: "change-password", data: {currentPassword: "old pw",newPassword: "new pw" }}
 ````
 
 ###Deck Edit

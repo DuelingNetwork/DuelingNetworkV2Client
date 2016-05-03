@@ -63,10 +63,6 @@ function unescapeHtml(escapedStr) {
 }
 
 
-function secure() {
-    return;
-}
-
 function getSessionId() {
     'use strict';
     var chars = ('0123456789abcdef').split(''),
@@ -129,6 +125,36 @@ function onDNSocketConnect(loginData) {
     }, 30000);
 }
 
+function renderUserList() {
+    'use strict';
+    var i,
+        n,
+        user,
+        friend;
+    $("#onlineusers ul").html('');
+    onlineUsers = onlineUsers.sort(function (a, b) {
+        if (a.currentAdminRole > 0 || b.currentAdminRole > 0) {
+            if (a.currentAdminRole === b.currentAdminRole) {
+                return a.username > b.username;
+            }
+            return b.currentAdminRole - a.currentAdminRole;
+        }
+        return a.username > b.username;
+    });
+    onlineFriends = onlineFriends.sort(function (a, b) {
+        return a.username > b.username;
+    });
+    for (n = 0; onlineFriends.length > n; n++) {
+        $("#onlineusers ul").append('<li><span class="friend">' + escapeHtml(onlineFriends[n].username) + '</span></li>');
+    }
+    for (i = 0; onlineUsers.length > i; i++) {
+        user = onlineUsers[i];
+        $("#onlineusers ul").append('<li><span class="' + adminColrs[user.currentAdminRole] + '">' + escapeHtml(user.username) + '</span></li>');
+    }
+    $('#useronlinecount').text('Users Online: ' + onlineUsers.length);
+
+}
+
 function handleNotification(notification) {
     'use strict';
     console.log(notification);
@@ -160,6 +186,15 @@ function handleNotification(notification) {
     default:
         return;
     }
+}
+
+function modalBox(message) {
+    // TODO: make this box properly modal
+    'use strict';
+    $('<div class="modalContainer"><div class="modalBox"><div class="modalMessage">' + message + '</div><div class="modalOKButton">OK</div></div></div>').appendTo(document.body);
+    $('.modalOKButton').click(function () {
+        $(this).parent().parent().remove();
+    });
 }
 
 function handleLoginResponse(resp) {
@@ -201,6 +236,7 @@ function handleLoginResponse(resp) {
 }
 
 function handleRequestResponse(data) {
+    'use strict';
     console.log(data);
 }
 
@@ -279,47 +315,13 @@ function logout() {
     });
 }
 
-function renderUserList() {
-    var i,
-        n,
-        user,
-        friend;
-    $("#onlineusers ul").html('');
-    onlineUsers = onlineUsers.sort(function (a, b) {
-        if (a.currentAdminRole > 0 || b.currentAdminRole > 0) {
-            if (a.currentAdminRole === b.currentAdminRole) {
-                return a.username > b.username;
-            }
-            return b.currentAdminRole - a.currentAdminRole;
-        }
-        return a.username > b.username;
-    });
-    onlineFriends = onlineFriends.sort(function (a, b) {
-        return a.username > b.username;
-    });
-    for (n = 0; onlineFriends.length > n; n++) {
-        $("#onlineusers ul").append('<li><span class="friend">' + escapeHtml(onlineFriends[n].username) + '</span></li>');
-    }
-    for (i = 0; onlineUsers.length > i; i++) {
-        user = onlineUsers[i];
-        $("#onlineusers ul").append('<li><span class="' + adminColrs[user.currentAdminRole] + '">' + escapeHtml(user.username) + '</span></li>');
-    }
-    $('#useronlinecount').text('Users Online: ' + onlineUsers.length);
-
-}
 
 function updateMaxChatMessageLength(max) {
     'use strict';
     $('.affectedbymaxChatMessageLength').attr('maxlength', max);
 }
 
-function modalBox(message) {
-    // TODO: make this box properly modal
-    $('<div class="modalContainer"><div class="modalBox"><div class="modalMessage">' + message + '</div><div class="modalOKButton">OK</div></div></div>').appendTo(document.body);
-    $('.modalOKButton').click(function () {
-        $(this).parent().parent().remove();
-    });
-}
+
 
 function newdeck(name) {
     'use strict';
@@ -344,7 +346,7 @@ function getdeck(name) {
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
     $('#formLogin').submit(function (event) {
-        'use strict';
+
         var rememberMe = $('[name=rememberMe]').prop('checked'),
             input = $('#formLogin').serialize(); // this refers to $('#formLogin')-> result.
         $.post(httpBase + "login", input, function (data) {
@@ -369,7 +371,6 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     });
 
     $('#formForgotPW').submit(function (event) {
-        'use strict';
         $.post(httpBase + "forgot_password", $(this).serialize(), function (data) {
             console.log(data);
             if (data.success) {
