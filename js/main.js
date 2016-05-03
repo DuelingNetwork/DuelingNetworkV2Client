@@ -343,6 +343,53 @@ function getdeck(name) {
     });
 }
 
+function deletedeck(name, decktoload) {
+    'use strict';
+    sendRequest({
+        name: "delete-deck",
+        data: {
+            deckNameForDelete: name,
+            deckNameForGet: decktoload
+        }
+    });
+}
+
+function renamedeck(oldname, newname) {
+    'use strict';
+    sendRequest({
+        name: "rename-deck",
+        data: {
+            currentDeckName: oldname,
+            newDeckName: newname
+        }
+    });
+}
+
+function savedeck(name, mainDeck, sideDeck, extraDeck) {
+    'use strict';
+    sendRequest({
+        name: "save-deck",
+        data: {
+            deckName: name,
+            mainDeck: mainDeck,
+            sideDeck: sideDeck,
+            extraDeck: extraDeck,
+            isSaveAs: true // is this always true?s
+        }
+    });
+}
+
+function setdefaultdeck(name) {
+    'use strict';
+    sendRequest({
+        name: "set-default-deck",
+        data: {
+            deckName: name
+        }
+    });
+}
+
+
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
     $('#formLogin').submit(function (event) {
