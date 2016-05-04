@@ -195,6 +195,82 @@ function modalBox(message) {
     });
 }
 
+
+
+function newdeck(name) {
+    'use strict';
+    sendRequest({
+        name: "new-deck",
+        data: {
+            deckName: name
+        }
+    });
+}
+
+function getdeck(name) {
+    'use strict';
+    sendRequest({
+        name: "get-deck",
+        data: {
+            deckName: name
+        }
+    });
+}
+
+function getdeckdata(name) {
+    'use strict';
+    sendRequest({
+        name: "get-deck-data",
+        data: {}
+    });
+}
+
+function deletedeck(name, decktoload) {
+    'use strict';
+    sendRequest({
+        name: "delete-deck",
+        data: {
+            deckNameForDelete: name,
+            deckNameForGet: decktoload
+        }
+    });
+}
+
+function renamedeck(oldname, newname) {
+    'use strict';
+    sendRequest({
+        name: "rename-deck",
+        data: {
+            currentDeckName: oldname,
+            newDeckName: newname
+        }
+    });
+}
+
+function savedeck(name, mainDeck, sideDeck, extraDeck) {
+    'use strict';
+    sendRequest({
+        name: "save-deck",
+        data: {
+            deckName: name,
+            mainDeck: mainDeck,
+            sideDeck: sideDeck,
+            extraDeck: extraDeck,
+            isSaveAs: true // is this always true?s
+        }
+    });
+}
+
+function setdefaultdeck(name) {
+    'use strict';
+    sendRequest({
+        name: "set-default-deck",
+        data: {
+            deckName: name
+        }
+    });
+}
+
 function handleLoginResponse(resp) {
     'use strict';
     var user;
@@ -204,6 +280,7 @@ function handleLoginResponse(resp) {
         return;
     }
     pagenavto('mainscreen');
+    getdeckdata();
     menuInited = true;
     if (resp.admin) {
         userIsAdmin = resp.admin > 0;
@@ -238,13 +315,13 @@ function handleRequestResponse(data, requestRespondingTo) {
     console.log("Received response to request: ", data, requestRespondingTo);
     if (data.success) {
         switch (requestRespondingTo.name) { // check what sort of request was sent
-        // case-fallthrough: all of the following requests do not require client evaluation upon success (or it is handled in a different way like global-message)
+            // case-fallthrough: all of the following requests do not require client evaluation upon success (or it is handled in a different way like global-message)
         case "heartbeat":
         case "global-message":
         case "private-message":
             break;
-        // end of case-fallthrough
-        // TODO: handle the other request responses accordingly
+            // end of case-fallthrough
+            // TODO: handle the other request responses accordingly
         }
     }
 }
@@ -324,74 +401,6 @@ function logout() {
 function updateMaxChatMessageLength(max) {
     'use strict';
     $('.affectedbymaxChatMessageLength').attr('maxlength', max);
-}
-
-
-
-function newdeck(name) {
-    'use strict';
-    sendRequest({
-        name: "new-deck",
-        data: {
-            deckName: name
-        }
-    });
-}
-
-function getdeck(name) {
-    'use strict';
-    sendRequest({
-        name: "get-deck",
-        data: {
-            deckName: name
-        }
-    });
-}
-
-function deletedeck(name, decktoload) {
-    'use strict';
-    sendRequest({
-        name: "delete-deck",
-        data: {
-            deckNameForDelete: name,
-            deckNameForGet: decktoload
-        }
-    });
-}
-
-function renamedeck(oldname, newname) {
-    'use strict';
-    sendRequest({
-        name: "rename-deck",
-        data: {
-            currentDeckName: oldname,
-            newDeckName: newname
-        }
-    });
-}
-
-function savedeck(name, mainDeck, sideDeck, extraDeck) {
-    'use strict';
-    sendRequest({
-        name: "save-deck",
-        data: {
-            deckName: name,
-            mainDeck: mainDeck,
-            sideDeck: sideDeck,
-            extraDeck: extraDeck,
-            isSaveAs: true // is this always true?s
-        }
-    });
-}
-
-function setdefaultdeck(name) {
-    'use strict';
-    sendRequest({
-        name: "set-default-deck",
-        data: {
-            deckName: name
-        }
-    });
 }
 
 
