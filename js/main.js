@@ -14,7 +14,6 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     previousLocation = '', //purposely a global.
     heartbeatInterval,
     requests = [],
-    handledRequests = [],
     onlineUsers,
     friends = [],
     onlineFriends = [],
@@ -31,7 +30,6 @@ function initDefaults() {
     serverConnection = null;
     previousLocation = '';
     requests = [];
-    handledRequests = [];
     friends = [];
     onlineFriends = [];
     onlineUserCount = 0;
@@ -96,10 +94,10 @@ function pagenavto(target) {
 }
 
 
-function sendRequest(request) {
+function sendRequest(request, callback) {
     'use strict';
     serverConnection.send(JSON.stringify(request));
-    requests.push(request);
+    requests.push({ request: request, onResponse: callback });
 }
 
 function onDNSocketConnect(loginData) {
@@ -310,27 +308,11 @@ function handleLoginResponse(resp) {
 
 }
 
-function handleRequestResponse(data, requestRespondingTo) {
-    'use strict';
-    console.log("Received response to request: ", data, requestRespondingTo);
-    if (data.success) {
-        switch (requestRespondingTo.name) { // check what sort of request was sent
-            // case-fallthrough: all of the following requests do not require client evaluation upon success (or it is handled in a different way like global-message)
-        case "heartbeat":
-        case "global-message":
-        case "private-message":
-            break;
-            // end of case-fallthrough
-            // TODO: handle the other request responses accordingly
-        }
-    }
-}
-
 function onDNSocketData(message) {
     'use strict';
     var user,
         data,
-        requestRespondingTo = requests.shift();
+        requestRespondingTo;
     try {
         data = JSON.parse(message.data);
     } catch (parse_error) {
@@ -347,12 +329,15 @@ function onDNSocketData(message) {
         handleNotification(data);
         return;
     }
-    console.log("Responding to request: ", handledRequests.push(requestRespondingTo));
+    requestRespondingTo = requests.shift();
     if (!menuInited) {
         handleLoginResponse(data);
         return;
     } else {
-        handleRequestResponse(data, requestRespondingTo);
+        if ("function" === typeof requestRespondingTo.callback) {
+            requestRespondingTo.callback(data);
+        }
+        return;
     }
 }
 
