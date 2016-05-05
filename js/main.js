@@ -13,7 +13,7 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     serverConnection = null, //socket connection to DN.
     previousLocation = '', //purposely a global.
     heartbeatInterval,
-    requests = [],
+    requestCallbacks = [],
     onlineUsers,
     friends = [],
     onlineFriends = [],
@@ -22,21 +22,19 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     lastLoginData,
     rememberMe,
     userIsAdmin = false,
-    isAdminLoggedIn = false,
-    menuInited = false;
+    isAdminLoggedIn = false;
 
 function initDefaults() {
     'use strict';
     serverConnection = null;
     previousLocation = '';
-    requests = [];
+    requestCallbacks = [];
     friends = [];
     onlineFriends = [];
     onlineUserCount = 0;
     dnClientVersion = 1;
     userIsAdmin = false;
     isAdminLoggedIn = false;
-    menuInited = false;
 }
 
 // Use the browser's built-in functionality to quickly and safely escape the
@@ -97,7 +95,7 @@ function pagenavto(target) {
 function sendRequest(request, callback) {
     'use strict';
     serverConnection.send(JSON.stringify(request));
-    requests.push({ request: request, onResponse: callback });
+    requestCallbacks.push(callback);
 }
 
 function onDNSocketConnect(loginData) {
@@ -114,10 +112,9 @@ function onDNSocketConnect(loginData) {
             name: "heartbeat",
             data: {}
         };
-    sendRequest(request);
+    sendRequest(request, handleLoginResponse);
     heartbeatInterval = setInterval(function () {
-        //console.log("sending heartbeat");
-        sendRequest(heartbeatRequest);
+        sendRequest(heartbeatRequest, null);
     }, 30000);
 }
 
@@ -153,7 +150,6 @@ function renderUserList() {
 
 function handleNotification(notification) {
     'use strict';
-    console.log("Received notification: ", notification);
     switch (notification.name) {
     case ('chat-unlock'):
         break;
@@ -202,6 +198,8 @@ function newdeck(name) {
         data: {
             deckName: name
         }
+    },
+    function(resp) {
     });
 }
 
@@ -212,6 +210,8 @@ function getdeck(name) {
         data: {
             deckName: name
         }
+    },
+    function(resp) {
     });
 }
 
@@ -220,6 +220,8 @@ function getdeckdata(name) {
     sendRequest({
         name: "get-deck-data",
         data: {}
+    },
+    function(resp) {
     });
 }
 
@@ -231,6 +233,8 @@ function deletedeck(name, decktoload) {
             deckNameForDelete: name,
             deckNameForGet: decktoload
         }
+    },
+    function(resp) {
     });
 }
 
@@ -242,6 +246,8 @@ function renamedeck(oldname, newname) {
             currentDeckName: oldname,
             newDeckName: newname
         }
+    },
+    function(resp) {
     });
 }
 
@@ -256,6 +262,8 @@ function savedeck(name, mainDeck, sideDeck, extraDeck) {
             extraDeck: extraDeck,
             isSaveAs: true // is this always true?s
         }
+    },
+    function(resp) {
     });
 }
 
@@ -266,6 +274,8 @@ function setdefaultdeck(name) {
         data: {
             deckName: name
         }
+    },
+    function(resp) {
     });
 }
 
@@ -279,7 +289,6 @@ function handleLoginResponse(resp) {
     }
     pagenavto('mainscreen');
     getdeckdata();
-    menuInited = true;
     if (resp.admin) {
         userIsAdmin = resp.admin > 0;
     }
@@ -310,9 +319,7 @@ function handleLoginResponse(resp) {
 
 function onDNSocketData(message) {
     'use strict';
-    var user,
-        data,
-        requestRespondingTo;
+    var data;
     try {
         data = JSON.parse(message.data);
     } catch (parse_error) {
@@ -321,23 +328,13 @@ function onDNSocketData(message) {
         return;
     }
     console.log(data); // used for debug,... dont remove.
-    if (data.error) {
-        modalBox(data.error);
-        return;
-    }
     if (data.isNotification) {
         handleNotification(data);
         return;
     }
-    requestRespondingTo = requests.shift();
-    if (!menuInited) {
-        handleLoginResponse(data);
-        return;
-    } else {
-        if ("function" === typeof requestRespondingTo.callback) {
-            requestRespondingTo.callback(data);
-        }
-        return;
+    var requestCallback = requestCallbacks.shift();
+    if (requestCallback) {
+      requestCallback(data);
     }
 }
 
@@ -437,7 +434,9 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
                 message: message
             }
         };
-        sendRequest(message);
+        sendRequest(message, function(resp) {
+          // TODO: check success status
+        });
         $('#chat input').val('');
     });
     $('#chat input').keyup(function (e) {
