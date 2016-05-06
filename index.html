@@ -39,12 +39,12 @@
 </nav>
 -->
         <div id=chat style="display:none" draggable="true">
-            <h2>Public Chat
-                <div class="minimize"></div>
+            <h2>
+                Public Chat
+                <span class="minimize"></span>
             </h2>
             <ul></ul>
             <input type="text">
-
         </div>
         <div id=private style="display:none" draggable="true">
             <h2>Private Chat
@@ -112,7 +112,7 @@
                 <br/> Email:
                 <input type="text" name="email">
                 <br/>
-                <span>note: you will need to confirm your e-mail</span>
+                <span>Note: you will need to confirm your e-mail</span>
                 <br/>
                 <div style="width: 50%;">
                     <button class="backToLogin" style="color: blue; text-decoration: underline;" type="reset">back</button>
@@ -159,17 +159,17 @@
             <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
             <div class="row">
                 <div class="col-md-10 lobby-container">
-                    <div class="col-md-3 lobby" style="background: green;">
-                        <div class="lobby-title">Advanced (Unrated)</div>
-                        <div id="au"></div>
+                    <div class="col-md-3 lobby" on>
+                        <div class="lobby-title" style="background: green;">Advanced (Unrated)</div>
+                        <ul id="au"></ul>
                     </div>
-                    <div class="col-md-3 lobby" style="background: pink;">
-                        <div class="lobby-title">Traditional (Unrated)</div>
-                        <div id="tu"></div>
+                    <div class="col-md-3 lobby">
+                        <div class="lobby-title" style="background: pink;">Traditional (Unrated)</div>
+                        <ul id="tu"></ul>
                     </div>
-                    <div class="col-md-3 lobby" style="background: lightgray;">
-                        <div class="lobby-title">Unlimited (Unrated)</div>
-                        <div id="uu"></div>
+                    <div class="col-md-3 lobby">
+                        <div class="lobby-title" style="background: lightgray;">Unlimited (Unrated)</div>
+                        <ul id="uu"></ul>
                     </div>
                 </div>
             </div>

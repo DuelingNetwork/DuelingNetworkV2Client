@@ -165,20 +165,20 @@ main > section > .navbar {
 
 .green {
     font-weight: bold;
-    color: chartreuse;
-    text-shadow: 0px 0px 2px black;
+    color: limegreen;
+    text-shadow: 1px 1px 2px black;
 }
 
 .silver {
     font-weight: bold;
     color: silver;
-    text-shadow: 0px 0px 2px black;
+    text-shadow: 1px 1px 0px black;
 }
 
 .gold {
     font-weight: bold;
     color: gold;
-    text-shadow: 0px 0px 2px black;
+    text-shadow: 1px 1px 0px black;
 }
 
 .friend {
@@ -194,8 +194,8 @@ h1 {
 }
 
 #chat h2 {
-    height: 10%;
-    padding: 8px 5px;
+    height: 8%;
+    padding: 9px 5px;
     margin: 0;
     background: blue;
     width: 100%;
@@ -203,7 +203,7 @@ h1 {
 }
 
 #onlineusers h2 {
-    height: 10%;
+    height: 8%;
     padding: 8px 5px;
     margin: 0;
     background: blue;
@@ -275,7 +275,7 @@ h1 {
     display: inline-block;
     position: absolute;
     top: 6px;
-    right: 13px;
+    right: 5px;
     box-shadow: inset 0 0 16px rgba(0, 0, 0, .5);
     border-radius: 6px;
 }
@@ -526,10 +526,20 @@ div#socialmedia img:hover {
 }
 
 .lobby {
+    height: 17em;
     width: 33%;
     border: 5px solid white;
     border-radius: 10px;
     margin: 2vw;
+    background: ghostwhite;
+}
+
+.lobby ul {
+    list-style-type: none;
+}
+
+.lobby ul li {
+    border: 1px solid black;
 }
 
 .lobby-title {

@@ -154,7 +154,7 @@ function handleNotification(notification) {
     case ('chat-unlock'):
         break;
     case ('global-message'):
-        $("#chat ul").append('<li><span class="' + adminColrs[notification.currentAdminRole] + '">' + notification.username + '</span>: ' + escapeHtml(notification.message) + '</li>');
+        $("#chat ul").append('<li><span class="' + adminColrs[notification.currentAdminRole] + '">' + notification.username + ':</span> ' + escapeHtml(notification.message) + '</li>');
         $("#chat ul").animate({
             scrollTop: $('#chat ul')[0].scrollHeight
         }, 1000);
@@ -188,7 +188,6 @@ function modalBox(message) {
         $(this).parent().parent().remove();
     });
 }
-
 
 
 function newdeck(name) {
@@ -279,6 +278,14 @@ function setdefaultdeck(name) {
     });
 }
 
+function getDuels(format, isRated) {
+    'use strict';
+    sendRequest({
+    },
+    function(resp) {
+    });
+}
+
 function handleLoginResponse(resp) {
     'use strict';
     var user;
@@ -338,8 +345,6 @@ function onDNSocketData(message) {
     }
 }
 
-
-
 function onDNSocketError() {
     'use strict';
     modalBox("DN Socket error. Please consider refreshing the page.");
@@ -384,7 +389,6 @@ function updateMaxChatMessageLength(max) {
     'use strict';
     $('.affectedbymaxChatMessageLength').attr('maxlength', max);
 }
-
 
 $(function main() { //this is `void main()` from C, C++, C# and Java land.
     'use strict';
@@ -434,7 +438,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
                 message: message
             }
         };
-        sendRequest(message, function(resp) {
+        sendRequest(message, function (resp) {
           // TODO: check success status
         });
         $('#chat input').val('');
@@ -446,6 +450,7 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     });
     $('.chatminimize, #chat .minimize').on('click', function () {
         $('#chat').toggle();
+        $('#chat > input').focus();
     });
     $('.onlinelistminimize, #onlineusers .minimize').on('click', function () {
         $('#onlineusers').toggle();
