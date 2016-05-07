@@ -90,5 +90,10 @@ function setdefaultdeck() {
         data: {
             deckName: $('.decklist').val()
         }
-    }, function (resp) {});
+    }, function (resp) {
+        var name = $('.decklist').val();
+        if (resp.success) {
+            modalBox(name + ' set as default deck.');
+        }
+    });
 }

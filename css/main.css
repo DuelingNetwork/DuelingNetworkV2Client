@@ -181,6 +181,37 @@ main > section > .navbar {
     text-shadow: 1px 1px 0px black;
 }
 
+.modalContainer {
+    position: fixed;
+    z-index: 900;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .5);
+    color: white;
+    text-align: center;
+}
+
+.modalBox {
+    width: 25vw;
+    margin: 25% auto;
+    border: 5px solid white;
+    padding: 1vh 1vw;
+    border-radius: 5px;
+    box-shadow: 0 0 5px black;
+    background: black;
+}
+
+.modalOKButton {
+    margin: 2vh auto;
+    width: 3em;
+    background: green;
+    padding: 1vh 0em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .friend {
     font-weight: bold;
     color: blue;
