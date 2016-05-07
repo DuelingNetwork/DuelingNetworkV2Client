@@ -1,5 +1,9 @@
 /*global sendRequest*/
 
+function cleardeck() {
+
+}
+
 function newdeck(name) {
     'use strict';
     sendRequest({
@@ -17,15 +21,28 @@ function getdeck(name) {
         data: {
             deckName: name
         }
-    }, function (resp) {});
+    }, function (resp) {
+
+    });
 }
 
-function getdeckdata(name) {
+function getdeckdata() {
     'use strict';
     sendRequest({
         name: "get-deck-data",
         data: {}
-    }, function (resp) {});
+    }, function (resp) {
+        var names = [],
+            defaultname,
+            i;
+        $('.decklist').html('');
+
+        for (i = 0; resp.deckLites.length > i; i++) {
+            $('.decklist').append('<option name="' + resp.deckLites[i].name + '">' + resp.deckLites[i].name + '<option>');
+        }
+        $('.decklist option[value="' + resp.defaultDeck.name + '"]').attr("selected", "selected");
+        getdeck(resp.defaultDeck.name);
+    });
 }
 
 function deletedeck(name, decktoload) {
@@ -36,7 +53,9 @@ function deletedeck(name, decktoload) {
             deckNameForDelete: name,
             deckNameForGet: decktoload
         }
-    }, function (resp) {});
+    }, function (resp) {
+
+    });
 }
 
 function renamedeck(oldname, newname) {
@@ -72,10 +91,4 @@ function setdefaultdeck(name) {
             deckName: name
         }
     }, function (resp) {});
-}
-
-function getDuels(format, isRated) {
-    'use strict';
-    sendRequest({},
-        function (resp) {});
 }
