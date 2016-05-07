@@ -40,7 +40,7 @@ function getdeckdata() {
         for (i = 0; resp.deckLites.length > i; i++) {
             $('.decklist').append('<option name="' + resp.deckLites[i].name + '">' + resp.deckLites[i].name + '<option>');
         }
-        $('.decklist option[value="' + resp.defaultDeck.name + '"]').attr("selected", "selected");
+        $('.decklist option[name="' + resp.defaultDeck.name + '"]').attr("selected", "selected");
         getdeck(resp.defaultDeck.name);
     });
 }
@@ -83,12 +83,12 @@ function savedeck(name, mainDeck, sideDeck, extraDeck) {
     }, function (resp) {});
 }
 
-function setdefaultdeck(name) {
+function setdefaultdeck() {
     'use strict';
     sendRequest({
         name: "set-default-deck",
         data: {
-            deckName: name
+            deckName: $('.decklist').val()
         }
     }, function (resp) {});
 }
