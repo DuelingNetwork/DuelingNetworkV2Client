@@ -97,3 +97,7 @@ function setdefaultdeck() {
         }
     });
 }
+
+$('.decklist').onchange(function () {
+    getdeck($('.decklist').val());
+});
