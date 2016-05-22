@@ -1,7 +1,24 @@
 /*global sendRequest*/
 
-function cleardeck() {
+function getCard() {
+    'use strict';
+    sendRequest({
 
+    }, function (resp) {});
+}
+
+function getCardTypes() {
+    'use strict';
+    sendRequest({
+
+    }, function (resp) {});
+}
+
+function cleardeck() {
+    'use strict';
+    sendRequest({
+
+    }, function (resp) {});
 }
 
 function newdeck(name) {
@@ -38,7 +55,7 @@ function getdeckdata() {
         $('.decklist').html('');
 
         for (i = 0; resp.deckLites.length > i; i++) {
-            $('.decklist').append('<option name="' + resp.deckLites[i].name + '">' + resp.deckLites[i].name + '<option>');
+            $('.decklist').append('<option name="' + resp.deckLites[i].name + '">' + resp.deckLites[i].name + '</option>');
         }
         $('.decklist option[name="' + resp.defaultDeck.name + '"]').attr("selected", "selected");
         getdeck(resp.defaultDeck.name);
@@ -99,5 +116,22 @@ function setdefaultdeck() {
 }
 
 $('.decklist').onchange(function () {
+    'use strict';
     getdeck($('.decklist').val());
 });
+
+function switchformfields() {
+    'use strict';
+    if ($('.cardCategory').val() === "All") {
+        $('.monster-only').prop('disabled', true);
+        $('#cardType').prop('disabled', true);
+    }
+    else if ($('.cardCategory').val() === "Monster")) {
+        $('.monster-only').prop('disabled', false);
+        $('#cardType').prop('disabled', false);
+    }
+    else {
+        $('.monster-only').prop('disabled', true);
+        $('#cardType').prop('disabled', false);
+    }
+}
