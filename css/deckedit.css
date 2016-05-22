@@ -1,0 +1,60 @@
+div#searchpanel {
+    position: absolute;
+    right: 0;
+    height: 95%;
+    width: 20%;
+    background: gold;
+    top: 0;
+    border-radius: 10px;
+}
+
+div#deckpanel {
+    position: absolute;
+    left: 15vw;
+    height: 95%;
+    background: blue;
+    width: 64%;
+    top: 0;
+    border-radius: 10px;
+}
+
+#searchfilters * {
+    margin: 2px 0px;
+}
+
+#searchfilters h2 {
+    text-align: center;
+}
+
+#searchfilters label {
+    font-weight: bold;
+    color: black;
+    font-size: small;
+}
+
+.form-wrapper {
+    display: inline;
+}
+
+h2,
+#searchfilters select,
+#searchfilters input {
+    color: black;
+}
+
+#formCardSearch {
+    margin: 10px;
+}
+
+.full-length {
+    width: 100%;
+}
+
+.stat-input-sm {
+    width: 2vw;
+}
+
+.stat-input-md {
+    width: 3vw;
+}
+
