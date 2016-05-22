@@ -1,3 +1,7 @@
+#deckeditor {
+    padding: 0;
+}
+
 div#searchpanel {
     position: absolute;
     right: 0;
@@ -8,14 +12,88 @@ div#searchpanel {
     border-radius: 10px;
 }
 
-div#deckpanel {
-    position: absolute;
+div#maindeckpanel {
+    position: relative;
     left: 15vw;
-    height: 95%;
+    height: 74%;
     background: blue;
     width: 64%;
     top: 0;
     border-radius: 10px;
+}
+
+div#sidedeckpanel {
+    left: 15vw;
+    position: relative;
+    background: green;
+    height: 10%;
+    width: 64%;
+    border-radius: 10px;
+}
+
+div#extradeckpanel {
+    left: 15vw;
+    position: relative;
+    background: pink;
+    height: 10%;
+    width: 64%;
+    border-radius: 10px;
+}
+
+h3 {
+    color: white;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+#maindeck {
+    padding: 0vw;
+    margin: 1vw;
+    margin-left: 3vw;
+}
+
+#sidedeck,
+#extradeck {
+    margin-top: -2vh;
+    margin-left: 1vw;
+}
+
+#maindeck li,
+#sidedeck li,
+#extradeck li {
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    background-color: lightblue;
+    color: black;
+    border-color: blue;
+    border-style: solid;
+}
+
+#maindeck li {
+    width: 6vw;
+    height: 11.2vh;
+}
+
+
+#sidedeck li,
+#extradeck li {
+    width: 4vw;
+    height: 3.5vw;
+}
+
+#sidedeck li {
+    background: darkseagreen;
+}
+
+#extradeck li {
+    background: lavenderblush;
+}
+
+*:disabled {
+    font-style: italic;
+    background: gainsboro;
 }
 
 #searchfilters * {
@@ -32,14 +110,23 @@ div#deckpanel {
     font-size: small;
 }
 
-.form-wrapper {
+.form-wrapper-left {
     display: inline;
+    float: left;
+}
+.form-wrapper-right {
+    display: inline;
+    float: right;
 }
 
 h2,
 #searchfilters select,
 #searchfilters input {
     color: black;
+}
+
+#searchfilters select {
+    font-size: 12.5pt;
 }
 
 #formCardSearch {
@@ -56,5 +143,14 @@ h2,
 
 .stat-input-md {
     width: 3vw;
+}
+
+#cardSearchSubmit {
+    border-radius: 10px;
+    width: 100%;
+    font-weight: bold;
+    color: black;
+    background: khaki;
+    border: outset;
 }
 
