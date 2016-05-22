@@ -1,7 +1,32 @@
 /*global sendRequest*/
 
+var activeDeck = {
+        name: '',
+        main: {},
+        side: {},
+        extra: {},
+        isEdited: false
+
+    },
+    mainDeckCounts = {
+        total: 0,
+        normal: 0,
+        effect: 0,
+        ritual: 0,
+        pendulum: 0,
+        spell: 0,
+        trap: 0
+    },
+    searchResults = {};
+
 function getCard() {
     'use strict';
+    sendRequest({
+
+    }, function (resp) {});
+}
+
+function getCardDetails(cardID) {
     sendRequest({
 
     }, function (resp) {});
@@ -16,9 +41,10 @@ function getCardTypes() {
 
 function cleardeck() {
     'use strict';
-    sendRequest({
-
-    }, function (resp) {});
+    for (var card in activeDeck.main) delete activeDeck.main[card];
+    for (var card in activeDeck.side) delete activeDeck.side[card];
+    for (var card in activeDeck.extra) delete activeDeck.extra[card];
+    activeDeck.isEdited = false;
 }
 
 function newdeck(name) {
@@ -40,9 +66,29 @@ function getdeck(name) {
         }
     }, function (resp) {
 
+        if (activeDeck.isEdited) {
+            // modal for deck save confirmation
+        }
+
+        cleardeck();
+        activeDeck.name = resp.deck.name;
+       // loop over deck arrays, insert/modify deck ULs
+       for (var i = 0; resp.deck.mainDeck.length > i; i++) {
+            activeDeck.main[resp.deck.mainDeck[i].id] = resp.deck.mainDeck[i];
+       }
+
+       for (var i = 0; resp.deck.sideDeck.length > i; i++) {
+            activeDeck.main[resp.deck.sideDeck[i].id] = resp.deck.sideDeck[i];
+       }
+
+       for (var i = 0; resp.deck.extraDeck.length > i; i++) {
+            activeDeck.main[resp.deck.extraDeck[i].id] = resp.deck.extraDeck[i];
+       }
     });
 }
 
+
+// possible rename
 function getdeckdata() {
     'use strict';
     sendRequest({
@@ -57,6 +103,15 @@ function getdeckdata() {
         for (i = 0; resp.deckLites.length > i; i++) {
             $('.decklist').append('<option name="' + resp.deckLites[i].name + '">' + resp.deckLites[i].name + '</option>');
         }
+
+        for (i = 1; i <= 60; i++) {
+            $('#maindeck').append('<li><div class="card"></div></li>');
+            if (i % 4 == 0){
+                $('#sidedeck').append('<li><div class="card-sm"></div></li>');
+                $('#extradeck').append('<li><div class="card-sm"></div></li>');
+            }
+        }
+
         $('.decklist option[name="' + resp.defaultDeck.name + '"]').attr("selected", "selected");
         getdeck(resp.defaultDeck.name);
     });
@@ -86,7 +141,7 @@ function renamedeck(oldname, newname) {
     }, function (resp) {});
 }
 
-function savedeck(name, mainDeck, sideDeck, extraDeck) {
+function savedeck(name, mainDeck, sideDeck, extraDeck, saveAs) {
     'use strict';
     sendRequest({
         name: "save-deck",
@@ -95,7 +150,7 @@ function savedeck(name, mainDeck, sideDeck, extraDeck) {
             mainDeck: mainDeck,
             sideDeck: sideDeck,
             extraDeck: extraDeck,
-            isSaveAs: true // is this always true?s
+            isSaveAs: saveAs
         }
     }, function (resp) {});
 }
@@ -120,18 +175,23 @@ $('.decklist').onchange(function () {
     getdeck($('.decklist').val());
 });
 
+$('.card').onmouseover(getCardDetails());
+
 function switchformfields() {
     'use strict';
-    if ($('.cardCategory').val() === "All") {
+    if ($('#cardCategory').val() === "All") {
+        console.log('all case');
         $('.monster-only').prop('disabled', true);
         $('#cardType').prop('disabled', true);
     }
-    else if ($('.cardCategory').val() === "Monster")) {
+    else if ($('#cardCategory').val() === "Monster") {
+        console.log('monster case');
         $('.monster-only').prop('disabled', false);
         $('#cardType').prop('disabled', false);
     }
     else {
+        console.log('else case');
         $('.monster-only').prop('disabled', true);
         $('#cardType').prop('disabled', false);
     }
-}
+};
