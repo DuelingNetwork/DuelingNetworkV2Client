@@ -409,26 +409,6 @@ h1 {
     bottom: 195px;
 }
 
-div#searchpanel {
-    position: absolute;
-    right: 0;
-    height: 100%;
-    width: 25%;
-    background: gold;
-    top: 0;
-    border-radius: 10px;
-}
-
-div#deckpanel {
-    position: absolute;
-    left: 273px;
-    height: 75%;
-    background: blue;
-    width: 54.5%;
-    top: 0;
-    border-radius: 10px;
-}
-
 @-webkit-keyframes charlieeee {
     from {
         background-position: top left;
