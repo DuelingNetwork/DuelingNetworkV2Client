@@ -1,3 +1,7 @@
 # VisualStudio files
 /.vs
 /sln
+/.idea/DuelingNetworkV2Client.iml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
