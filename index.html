@@ -180,7 +180,7 @@
             <div class="backbutton" onclick="pagenavto('mainscreen');">Back</div>
             <div class='uibutton cleardeck' onclick="cleardeck()">Clear Deck</div>
             <div class='uibutton setasdefault' onclick="setdefaultdeck()">Set As Default</div>
-            <select class='uibutton decklist' onclick=""></select>
+            <select class='uibutton decklist'></select>
             <div class='uibutton newdeck' onclick="startnewdeck()">New Deck</div>
             <div class='uibutton renamedeck' onclick="startrenamedeck">Rename Deck</div>
             <div class='uibutton deletedeck' onclick="startdeletedeck">Delete Deck</div>
@@ -190,7 +190,7 @@
             <div id="searchpanel">
                 <div id="searchfilters">
                     <h2>Cards</h2>
-                    <form id="formCardSearch">
+                    <form id="formCardSearch" onsubmit="getCard(); return false;" autocomplete="off">
                         <input class="full-length" type="text" id="cardName"
                                name="cardName" placeholder="Card Name"/>
 
@@ -198,7 +198,7 @@
                                name="cardDesc" placeholder="Effect"/>
 
                         <label>Card:</label>
-                        <select id="cardCategory" onchange="switchformfields">
+                        <select id="cardCategory" onchange="switchformfields()">
                             <option selected>All</option>
                             <option>Monster</option>
                             <option>Spell</option>
@@ -219,57 +219,80 @@
 
                         <br />
 
-                        <label>Attr:</label>
-                        <select disabled class="monster-only" id="cardAttribute">
-                            <option selected>All</option>
-                            <option>DIVINE</option>
-                        </select>
+                        <div class="form-wrapper-left">
+                            <label>Attr:</label>
+                            <select disabled class="monster-only" id="cardAttribute">
+                                <option selected>All</option>
+                                <option>DIVINE</option>
+                            </select>
+                        </div>
 
-                        <input disabled class="monster-only stat-input-sm" type="number" id="levelLow" />
-                        <label>≤ Level / Rank ≤</label>
-                        <input disabled class="monster-only stat-input-sm" type="number" id="levelHigh" />
+                        <div class="form-wrapper-right">
+                            <input disabled class="monster-only stat-input-sm" type="number" id="levelLow" />
+                            <label>≤ Level / Rank ≤</label>
+                            <input disabled class="monster-only stat-input-sm" type="number" id="levelHigh" />
+                        </div>
 
                         <br />
 
-                        <div class="form-wrapper">
+                        <div class="form-wrapper-left">
                             <input disabled class="monster-only stat-input-md" type="number" id="atkLow" />
                             <label>≤ ATK ≤</label>
                             <input disabled class="monster-only stat-input-md" type="number" id="atkHigh" />
                         </div>
-                        <div class="form-wrapper">
+                        <div class="form-wrapper-right">
                             <input disabled class="monster-only stat-input-md" type="number" id="defLow" />
                             <label>≤ DEF ≤</label>
                             <input disabled class="monster-only stat-input-md" type="number" id="defHigh" />
                         </div>
                         <br />
 
-                        <label>Limit:</label>
+                        <div class="form-wrapper-left">
+                            <label>Limit:</label>
                             <select>
                                 <option>0</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                             </select>
-
-                        <label>Order:</label>
+                        </div>
+                        <div class="form-wrapper-right">
+                            <label>Order:</label>
                             <select>
                                 <option>A-Z</option>
                                 <option>Z-A</option>
                                 <option>Newest</option>
                                 <option>Oldest</option>
                             </select>
-
+                        </div>
                         <br />
 
-                        <button>Search</button>
+                        <button id="cardSearchSubmit" type="submit" value="submit">Search</button>
                     </form>
                 </div>
                 <div id="cardresultspanel">
-
                 </div>
             </div>
-            <div id="deckpanel">
+            <div id="maindeckpanel">
+                <h3>Main Deck</h3>
+                <div id="cardcountspanel">
 
+                </div>
+                <ul id="maindeck">
+
+                </ul>
+            </div>
+            <div id="sidedeckpanel">
+                <h3>Side Deck</h3>
+                <ul id="sidedeck">
+
+                </ul>
+            </div>
+            <div id="extradeckpanel">
+                <h3>Extra Deck</h3>
+                <ul id="extradeck">
+
+                </ul>
             </div>
         </section>
 
