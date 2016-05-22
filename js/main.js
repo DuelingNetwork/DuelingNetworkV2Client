@@ -22,7 +22,8 @@ var httpBase = 'http://www.duelingnetwork.com:8080/Dueling_Network/v2/action/', 
     lastLoginData,
     rememberMe,
     userIsAdmin = false,
-    isAdminLoggedIn = false;
+    isAdminLoggedIn = false,
+    isShowingModal = false;
 
 function initDefaults() {
     'use strict';
@@ -35,6 +36,7 @@ function initDefaults() {
     dnClientVersion = 1;
     userIsAdmin = false;
     isAdminLoggedIn = false;
+    isShowingModal = false;
 }
 
 // Use the browser's built-in functionality to quickly and safely escape the
@@ -181,11 +183,15 @@ function handleNotification(notification) {
 }
 
 function modalBox(message) {
-    // TODO: make this box properly modal
     'use strict';
+    if (isShowingModal) { return; }
+
     $('<div class="modalContainer"><div class="modalBox"><div class="modalMessage">' + message + '</div><div class="modalOKButton">OK</div></div></div>').appendTo(document.body);
+    $('.modalOKButton').focus();
+    isShowingModal = true;
     $('.modalOKButton').click(function () {
         $(this).parent().parent().remove();
+        isShowingModal = false;
     });
 }
 
