@@ -40,7 +40,7 @@ Source code examples can be found in the main project scripts.
 This document may be incomplete. I'll review it at a later date.
 
 ###Chat
-Globa chat once logged in has the following structure to send a message 
+Global chat once logged in has the following structure to send a message 
 ````JavaScript
 { name: "global-message", data: { message: "hello world" } }
 { name: "private-message", data: {recipient: "someone", message: "hello" }}
@@ -59,4 +59,33 @@ Globa chat once logged in has the following structure to send a message
 { name: "save-deck", data: {deckName: "name", mainDeck: [1,2,3], sideDeck: [1,2,3], extraDeck: [1,2,3], isSaveAs: true}}
 { name: "set-default-deck", data: {deckName: "new default deck"}}
 { name: "get-deck-data", data: {}}
+{ name: "clone-deck", data: {shareCode: "share code" }}
+{ name: "reset-share-code", data: {currentShareCode: "share code" }}
+{ name: "card-search",
+  data: {
+      name: "black luster",
+      description: "you can ritual summon this card",
+      card: "ritual",
+      types: ["warrior", "ritual", "effect"],
+      attribute: "earth",
+      levelLow: 8,
+      levelHigh: 8,
+      attackLow: 3000,
+      attackHigh: 3000,
+      defenseLow: 2500,
+      defenseHigh: 2500,
+      cardLimit: 3,
+      resultOrder: "NEWER_FIRST" / or "NAME" /,
+      resultOffset: 0,
+      resultCount: 1
+  }
+};
+````
+
+###Profiles
+```` JavaScript
+{ name: "get-profile", data: {username: "username" }}
+{ name: "my-profile", data: {}}
+{ name: "save-profile", data: {avatar:"0/1.jpg", cardBack:"", cardBackColor1:255, cardBackColor2:255, profile: "my profile" }}
+{ name: "redeem-reward", data: {transactionId:"transaction id"} }
 ````
