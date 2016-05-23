@@ -19,7 +19,7 @@ var activeDeck = {
     },
     searchResults = {};
 
-function getCard() {
+function searchCard() {
     'use strict';
     sendRequest({
 
@@ -88,7 +88,7 @@ function getdeck(name) {
 }
 
 
-// possible rename
+// rename this function?
 function getdeckdata() {
     'use strict';
     sendRequest({
@@ -138,7 +138,11 @@ function renamedeck(oldname, newname) {
             currentDeckName: oldname,
             newDeckName: newname
         }
-    }, function (resp) {});
+    }, function (resp) {
+        if (resp.success) {
+            modalBox(oldName + ' has been renamed to ' + newName '.');
+        }
+    });
 }
 
 function savedeck(name, mainDeck, sideDeck, extraDeck, saveAs) {
@@ -195,3 +199,15 @@ function switchformfields() {
         $('#cardType').prop('disabled', false);
     }
 };
+
+function resetShareCode(currentCode) {
+    'use strict';
+    sendRequest({
+        name: "reset-share-code",
+        data: {
+            currentShareCode: currentCode
+        }
+    }, function (resp) {
+
+    })
+}
