@@ -428,5 +428,6 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
             makeProfileAvatarSelection(profileData.avatarGallery, profileData.totalWins);
             makeProfileCBSelection(profileData.cardBackGallery, profileData.totalExperience);
             */
+        });
     });
 });
