@@ -1,4 +1,5 @@
-/*global sendRequest*/
+/*jslint plusplus:true*/
+/*global sendRequest, $, modalBox*/
 
 var activeDeck = {
         name: '',
@@ -27,6 +28,7 @@ function searchCard() {
 }
 
 function getCardDetails(cardID) {
+    'use strict';
     sendRequest({
 
     }, function (resp) {});
@@ -41,9 +43,16 @@ function getCardTypes() {
 
 function cleardeck() {
     'use strict';
-    for (var card in activeDeck.main) delete activeDeck.main[card];
-    for (var card in activeDeck.side) delete activeDeck.side[card];
-    for (var card in activeDeck.extra) delete activeDeck.extra[card];
+    var card;
+    for (card in activeDeck.main) {
+        delete activeDeck.main[card];
+    }
+    for (card in activeDeck.side) {
+        delete activeDeck.side[card];
+    }
+    for (card in activeDeck.extra) {
+        delete activeDeck.extra[card];
+    }
     activeDeck.isEdited = false;
 }
 
@@ -65,25 +74,25 @@ function getdeck(name) {
             deckName: name
         }
     }, function (resp) {
-
+        var i;
         if (activeDeck.isEdited) {
             // modal for deck save confirmation
         }
 
         cleardeck();
         activeDeck.name = resp.deck.name;
-       // loop over deck arrays, insert/modify deck ULs
-       for (var i = 0; resp.deck.mainDeck.length > i; i++) {
+        // loop over deck arrays, insert/modify deck ULs
+        for (i = 0; resp.deck.mainDeck.length > i; i++) {
             activeDeck.main[resp.deck.mainDeck[i].id] = resp.deck.mainDeck[i];
-       }
+        }
 
-       for (var i = 0; resp.deck.sideDeck.length > i; i++) {
+        for (i = 0; resp.deck.sideDeck.length > i; i++) {
             activeDeck.main[resp.deck.sideDeck[i].id] = resp.deck.sideDeck[i];
-       }
+        }
 
-       for (var i = 0; resp.deck.extraDeck.length > i; i++) {
+        for (i = 0; resp.deck.extraDeck.length > i; i++) {
             activeDeck.main[resp.deck.extraDeck[i].id] = resp.deck.extraDeck[i];
-       }
+        }
     });
 }
 
@@ -106,7 +115,7 @@ function getdeckdata() {
 
         for (i = 1; i <= 60; i++) {
             $('#maindeck').append('<li><div class="card"></div></li>');
-            if (i % 4 == 0){
+            if (i % 4 === 0) {
                 $('#sidedeck').append('<li><div class="card-sm"></div></li>');
                 $('#extradeck').append('<li><div class="card-sm"></div></li>');
             }
@@ -187,18 +196,16 @@ function switchformfields() {
         console.log('all case');
         $('.monster-only').prop('disabled', true);
         $('#cardType').prop('disabled', true);
-    }
-    else if ($('#cardCategory').val() === "Monster") {
+    } else if ($('#cardCategory').val() === "Monster") {
         console.log('monster case');
         $('.monster-only').prop('disabled', false);
         $('#cardType').prop('disabled', false);
-    }
-    else {
+    } else {
         console.log('else case');
         $('.monster-only').prop('disabled', true);
         $('#cardType').prop('disabled', false);
     }
-};
+}
 
 function resetShareCode(currentCode) {
     'use strict';
@@ -209,5 +216,5 @@ function resetShareCode(currentCode) {
         }
     }, function (resp) {
 
-    })
+    });
 }
