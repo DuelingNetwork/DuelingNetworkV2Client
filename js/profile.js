@@ -1,3 +1,5 @@
+/*jslint */
+/*global sendRequest*/
 function getOtherProfile(userName, callback) {
     'use strict';
     sendRequest({
@@ -15,8 +17,16 @@ function getMyProfile(callback) {
     }, callback);
 }
 
-function saveProfile(newAvatar = null, newCardBack = null, newCardBackColor1 = null, newCardBackColor2 = null, newProfile = null, callback) {
+function saveProfile(newAvatar, newCardBack, newCardBackColor1, newCardBackColor2, newProfile, callback) {
     'use strict';
+    newAvatar = newAvatar || null;
+    newCardBack = newCardBack || null;
+    newCardBackColor1 = newCardBackColor1 || null;
+    newCardBackColor2 = newCardBackColor2 || null;
+    newProfile = newProfile || null;
+
+    callback = (typeof callback === 'function') ? callback : function () {};
+
     sendRequest({
         name: "save-profile",
         data: {
