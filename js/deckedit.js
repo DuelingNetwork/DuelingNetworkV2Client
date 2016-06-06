@@ -140,7 +140,7 @@ function renamedeck(oldname, newname) {
         }
     }, function (resp) {
         if (resp.success) {
-            modalBox(oldName + ' has been renamed to ' + newName '.');
+            modalBox(oldname + ' has been renamed to ' + newname + '.');
         }
     });
 }
@@ -174,12 +174,12 @@ function setdefaultdeck() {
     });
 }
 
-$('.decklist').onchange(function () {
+$('.decklist').change(function () {
     'use strict';
     getdeck($('.decklist').val());
 });
 
-$('.card').onmouseover(getCardDetails());
+//$('.card').mouseover(getCardDetails());
 
 function switchformfields() {
     'use strict';

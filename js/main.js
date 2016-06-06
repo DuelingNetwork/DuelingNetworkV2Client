@@ -96,8 +96,15 @@ function pagenavto(target) {
 
 function sendRequest(request, callback) {
     'use strict';
-    serverConnection.send(JSON.stringify(request));
-    requestCallbacks.push(callback);
+    // somewhere in our code, a request is happening before the socket has been initialized.
+    // stop that from messing up
+    // TODO: rewrite that call, please
+    if (serverConnection !== null) {
+        serverConnection.send(JSON.stringify(request));
+        requestCallbacks.push(callback);
+    } else {
+        console.log("Stop making requests if the socket is dead or hasn't been initialized yet.");
+    }
 }
 
 function onDNSocketConnect(loginData) {
@@ -230,7 +237,6 @@ function handleLoginResponse(resp) {
         }
     }
     renderUserList();
-
 }
 
 function onDNSocketData(message) {
@@ -406,5 +412,21 @@ $(function main() { //this is `void main()` from C, C++, C# and Java land.
     });
     $('[draggable="true"]').draggable({
         containment: "parent"
+    });
+    $('#openmyprofile').click(function () {
+        getMyProfile(function (profileData) {
+            // TODO: set up a UI for this tab
+            // if UI and functions in comment are implemented, uncomment below code
+            /*
+            $('#profileAvatar').attr('src', profileData.avatar);
+            if (profileData.hasReward === true) {
+                $('#avatarBorder').css('border', 'gold 2px solid'); // make this look pretty, please
+            }
+            if (userIsAdmin && !profileData.startsWith("Insufficient")) {
+                enableCustomRewards();
+            }
+            makeProfileAvatarSelection(profileData.avatarGallery, profileData.totalWins);
+            makeProfileCBSelection(profileData.cardBackGallery, profileData.totalExperience);
+            */
     });
 });

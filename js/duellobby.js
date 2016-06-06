@@ -1,7 +1,6 @@
 /*global sendRequest*/
 
-function getDuels(format, isRated) {
+function getDuels(format, isRated, callback) {
     'use strict';
-    sendRequest({},
-        function (resp) {});
+    sendRequest({}, callback);
 }

@@ -1,25 +1,21 @@
-function getOtherProfile(userName) {
+function getOtherProfile(userName, callback) {
     'use strict';
     sendRequest({
         name: "get-profile",
         data: {
             username: userName
         }
-    }, function (resp) {
-
-    });
+    }, callback);
 }
 
-function getMyProfile() {
+function getMyProfile(callback) {
     'use strict';
     sendRequest({
         name: "my-profile"
-    }, function (resp) {
-
-    });
+    }, callback);
 }
 
-function saveProfile(newAvatar = null, newCardBack = null, newCardBackColor1 = null, newCardBackColor2 = null, newProfile = null) {
+function saveProfile(newAvatar = null, newCardBack = null, newCardBackColor1 = null, newCardBackColor2 = null, newProfile = null, callback) {
     'use strict';
     sendRequest({
         name: "save-profile",
@@ -30,20 +26,16 @@ function saveProfile(newAvatar = null, newCardBack = null, newCardBackColor1 = n
             cardBackColor2: newCardBackColor2,
             profile: newProfile
         }
-    }, function(resp) {
-
-    });
+    }, callback);
 
 }
 
-function redeemReward(transID) {
+function redeemReward(transID, callback) {
     'use strict';
     sendRequest({
         name: "redeem-reward",
         data: {
             transactionID: transID
         }
-    }, function(resp) {
-
-    });
+    }, callback);
 }
